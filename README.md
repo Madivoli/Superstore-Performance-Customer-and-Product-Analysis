@@ -77,6 +77,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
       sc = pd.concat(superstore_list, ignore_index=True)
     
     print(sc.head())
+<img width="975" height="1049" alt="image" src="https://github.com/user-attachments/assets/6f779907-d466-4346-9403-76079a3b328a" />
 
 -- Saving the combined sheets as a CSV file
 
@@ -107,12 +108,12 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     }, inplace=True)
 
     print(sc.columns)
-<img width="956" height="108" alt="image" src="https://github.com/user-attachments/assets/6b76d2ea-8ff7-401e-abc1-46c8b85a2ac1" />
+<img width="975" height="173" alt="image" src="https://github.com/user-attachments/assets/fd4238f4-80cc-494d-aaa6-d8b1edfb9aeb" />
 
 -- Checking data types
 
     sc.info()
-<img width="985" height="501" alt="image" src="https://github.com/user-attachments/assets/abb9550b-f436-4e1e-9995-a4ee67f09205" />
+<img width="975" height="792" alt="image" src="https://github.com/user-attachments/assets/cd50e11f-5caa-482b-8585-568825badbad" />
 
 -- Converting data types
 
@@ -135,7 +136,8 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
     print("\nData types after conversion:")
     print(sc.dtypes)
-<img width="963" height="444" alt="image" src="https://github.com/user-attachments/assets/c8ac3367-60e9-44fb-b8b1-41c098932555" />
+<img width="975" height="706" alt="image" src="https://github.com/user-attachments/assets/9618859f-29e1-444c-978d-4bbc19802852" />
+
 
 
 **-- Data cleaning:**
