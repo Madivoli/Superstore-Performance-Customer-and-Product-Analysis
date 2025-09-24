@@ -270,12 +270,12 @@ Displaying the new columns
 
 **-- Profitability & Loss Analysis**
 
-1. What factors correlate with a product or an order generating a loss (negative profit)?
+**1. What factors correlate with a product or an order generating a loss (negative profit)?**
    
-            import pandas as pd
-            import numpy as np
-            import seaborn as sns
-            import matplotlib.pyplot as plt
+        import pandas as pd
+        import numpy as np
+        import seaborn as sns
+        import matplotlib.pyplot as plt
 
 -- Creating a binary target variable for loss-making products
 
@@ -311,15 +311,15 @@ Displaying the new columns
 • There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
 
 
-2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?
+**2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?**
    
-            import pandas as pd
-            import numpy as np
-            import matplotlib.pyplot as plt
-            import seaborn as sns
-            from sklearn.linear_model import LinearRegression
-            from sklearn.metrics import r2_score
-            import scipy.stats as stats
+        import pandas as pd
+        import numpy as np
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        from sklearn.linear_model import LinearRegression
+        from sklearn.metrics import r2_score
+        import scipy.stats as stats
 
 -- Establishing variables
 
