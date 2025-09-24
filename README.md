@@ -246,12 +246,12 @@ Displaying the new columns
           'is_profitable', 'high_discount']].head(10))
 <img width="887" height="519" alt="image" src="https://github.com/user-attachments/assets/672ce9b9-ba9f-4906-a4ce-a307805743f6" />
 
--- Summary statistics of the new features
+-- Summary statistics for the new features
 
     print("\nSummary statistics:")
     print(sc[['profit_margin', 'unit_price', 'total_cost', 
           'discount_amount', 'net_profit_margin', 'processing_days']].describe())
-
+<img width="954" height="415" alt="image" src="https://github.com/user-attachments/assets/d156d962-09a6-4a02-96aa-0c78ca2a03c6" />
 
 -- Creating a clean and enhanced CSV file
 
@@ -263,4 +263,55 @@ Displaying the new columns
     file_path = "C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\ss_clean.csv"
     if os.path.exists(file_path):
         print("File successfully created!")
+
+## DATA VISUALIZATION
+
+-- Importing the cleaned CSV file
+
+    import pandas as pd
+
+    ss = pd.read_csv(r"C:\Users\hp\OneDrive\Projects\PYTHON\Superstore\ss_clean.csv")
+
+    print(ss.head())
+
+-- Analysing profit margin by category
+
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='category', y='profit_margin', data=ss)
+    plt.title('Profit Margin by Product Category')
+    plt.xticks(rotation=45)
+    plt.show()
+<img width="879" height="502" alt="image" src="https://github.com/user-attachments/assets/e024116b-671a-49c2-b738-29dc84a751e0" />
+
+
+-- Analysing discount by return status
+
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='discount', y='returned', data=ss)
+    plt.title('Discount by Return Status')
+    plt.xticks(rotation=45)
+    plt.show()
+<img width="912" height="498" alt="image" src="https://github.com/user-attachments/assets/5bf33eab-be86-4375-89ad-c9bf38951fec" />
+
+**Key Insights**
+1. Median discount_amount
+•	Returned (Yes): The median (the line inside the box) for the returned items is very close to zero. This suggests that the majority of returned products had little to no discount applied.
+•	Not Returned (No): The median for the non-returned items is also very close to zero, similar to the returned group. This indicates that the typical discount applied for both groups is minimal.
+2. Spread and Interquartile Range (IQR)
+•	Returned (Yes): The box itself, which represents the interquartile range (IQR) (the middle 50% of the data), is very narrow. This means that the discount amounts for the returned items are very tightly clustered around the median.
+•	Not Returned (No): The box for the non-returned items is also very narrow, indicating a similar tight clustering of discount amounts around the median.
+3. Outliers
+•	Returned (Yes): There are several individual points (circles) plotted far above the upper whisker. These are outliers, representing a small number of returned products that had a significantly large discount amount.
+•	Not Returned (No): This group has a large number of outliers, some reaching a much higher value than those in the returned group. This indicates that while most transactions had low discounts, there were many instances of very high discounts for products that were not returned.
+4. Comparison
+•	Both groups have a very similar median and interquartile range, suggesting that the typical discount amount is low regardless of whether an item is returned or not.
+•	The primary difference lies in the outliers. The "No" group (not returned) has more extreme outliers, indicating that a small number of very high discounts were associated with products that customers chose to keep. This is an important insight, as it suggests a potential correlation between very high discounts and customer retention.
 
