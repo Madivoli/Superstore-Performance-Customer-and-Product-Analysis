@@ -1,4 +1,4 @@
-## SUPERSTORE PERFORMANCE, CUSTOMER, AND PRODUCT ANALYSIS
+<img width="977" height="642" alt="image" src="https://github.com/user-attachments/assets/bccb8a49-6fb8-494a-8954-fb880dcb19c5" />## SUPERSTORE PERFORMANCE, CUSTOMER, AND PRODUCT ANALYSIS
 
 ## Objective
 
@@ -445,7 +445,30 @@ There exists a **strong negative linear relationship between discount and profit
     HAVING total_sales > 0  
     ORDER BY total_profit DESC
     LIMIT 10;
-<img width="977" height="452" alt="image" src="https://github.com/user-attachments/assets/7af09442-12df-4375-8a7e-c5b883d8b7a9" />
+<img width="977" height="642" alt="image" src="https://github.com/user-attachments/assets/c5462ddf-bc35-4bd4-bb2a-7cac521b4484" />
+
+-- Top 10 least profitable products 
+
+    SELECT 
+        product_id,
+        product_name,
+        category,
+        sub_category,
+        COUNT(DISTINCT order_id) AS total_orders,
+        SUM(quantity) AS total_quantity_sold,
+        ROUND(SUM(sales), 2) AS total_sales,
+        ROUND(SUM(profit), 2) AS total_profit,
+        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
+        ROUND(AVG(unit_price), 2) AS avg_unit_price,
+        ROUND(AVG(discount) * 100, 2) AS avg_discount_percent
+    FROM ss_staging
+    GROUP BY product_id, product_name, category, sub_category
+    HAVING total_sales > 0  
+    ORDER BY total_profit ASC  
+    LIMIT 10;
+
+<img width="977" height="555" alt="image" src="https://github.com/user-attachments/assets/6603a95c-3b42-4d4c-bcfe-055633d4027d" />
+
 
 **4. Are the loss-making products concentrated in certain categories that might be used to attract customers?**
 
