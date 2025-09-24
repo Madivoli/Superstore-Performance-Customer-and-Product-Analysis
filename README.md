@@ -26,6 +26,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     •	How does sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?
     •	What is the typical sales amount and profit margin based on category and region? 
 **4. Returns Analysis:**
+
     •	Why are products being returned? What patterns distinguish returned orders from kept orders? (e.g., higher discounts, specific product categories, certain shipping methods, lower profit margins?). 
     •	Can we predict the probability of an order being returned based on factors like discount, product category, and profit? Python
 
