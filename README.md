@@ -276,12 +276,18 @@ Displaying the new columns
     import numpy as np
     import seaborn as sns
     import matplotlib.pyplot as plt
-   
-    ss['is_loss'] = (ss['profit'] < 0).astype(int)  -- Creating a binary target variable for loss-making products
 
-    numeric_columns = ss.select_dtypes(include=[np.number]).columns -- Selecting only numeric columns for correlation analysis
+-- Creating a binary target variable for loss-making products
 
-    correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False) -- Calculating correlations with the loss indicator using only numeric columns
+    ss['is_loss'] = (ss['profit'] < 0).astype(int)  
+
+-- Selecting only numeric columns for correlation analysis
+
+    numeric_columns = ss.select_dtypes(include=[np.number]).columns 
+    
+-- Calculating correlations with the loss indicator using only numeric columns
+
+    correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False) 
 
     print("Correlation with Loss Making:")
     print(correlation_with_loss)
