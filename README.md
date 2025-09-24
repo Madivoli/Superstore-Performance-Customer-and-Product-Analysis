@@ -271,29 +271,22 @@ Displaying the new columns
 **-- Profitability & Loss Analysis**
 
 1. What factors correlate with a product or an order generating a loss (negative profit)?
-
-    import pandas as pd
-   
-    import numpy as np
-   
-    import seaborn as sns
-   
-    import matplotlib.pyplot as plt
+            import pandas as pd
+            import numpy as np
+            import seaborn as sns
+            import matplotlib.pyplot as plt
 
 -- Creating a binary target variable for loss-making products
-
-    ss['is_loss'] = (ss['profit'] < 0).astype(int)  
+            ss['is_loss'] = (ss['profit'] < 0).astype(int)  
 
 -- Selecting only numeric columns for correlation analysis
-
-    numeric_columns = ss.select_dtypes(include=[np.number]).columns 
+            numeric_columns = ss.select_dtypes(include=[np.number]).columns 
     
 -- Calculating correlations with the loss indicator using only numeric columns
+            correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False) 
 
-    correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False) 
-
-    print("Correlation with Loss Making:")
-    print(correlation_with_loss)
+            print("Correlation with Loss Making:")
+            print(correlation_with_loss)
 <img width="975" height="393" alt="image" src="https://github.com/user-attachments/assets/e6a67dae-ccbc-492a-8438-a91d4012f392" />
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
@@ -315,7 +308,6 @@ Displaying the new columns
 
 
 2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?
-
             import pandas as pd
             import numpy as np
             import matplotlib.pyplot as plt
@@ -324,38 +316,41 @@ Displaying the new columns
             from sklearn.metrics import r2_score
             import scipy.stats as stats
 
-
 -- Establishing variables
-        X = ss[['discount']]  # Independent variable
-        y = ss['profit_margin']  # Dependent variable
+            X = ss[['discount']]  # Independent variable
+            y = ss['profit_margin']  # Dependent variable
 
 -- Removing any rows with missing values
-        data = pd.concat([X, y], axis=1).dropna()
-        X_clean = data[['discount']]
-        y_clean = data['profit_margin']
+            data = pd.concat([X, y], axis=1).dropna()
+            X_clean = data[['discount']]
+            y_clean = data['profit_margin']
 
-# Fitting SLR model
-model = LinearRegression()
-model.fit(X_clean, y_clean)
+-- Fitting SLR model
+            model = LinearRegression()
+            model.fit(X_clean, y_clean)
 
-# Making predictions
-y_pred = model.predict(X_clean)
+-- Making predictions
+            y_pred = model.predict(X_clean)
 
-# Calculating R-squared
-r2 = r2_score(y_clean, y_pred)
+-- Calculating R-squared
+            r2 = r2_score(y_clean, y_pred)
 
-# Establishing regression coefficients
-slope = model.coef_[0]
-intercept = model.intercept_
+-- Establishing regression coefficients
+            slope = model.coef_[0]
+            intercept = model.intercept_
 
-print("=== SIMPLE LINEAR REGRESSION RESULTS: Discount vs Profit Margin ===")
-print(f"Regression Equation: Profit Margin = {intercept:.2f} + ({slope:.2f} × Discount)")
-print(f"R-squared: {r2:.4f} ({(r2*100):.1f}% of variance explained)")
-print(f"Slope: {slope:.2f} (For each 1% increase in discount, profit margin changes by {slope:.2f}%)")
-print("\n")
+            print("=== SIMPLE LINEAR REGRESSION RESULTS: Discount vs Profit Margin ===")
+            print(f"Regression Equation: Profit Margin = {intercept:.2f} + ({slope:.2f} × Discount)")
+            print(f"R-squared: {r2:.4f} ({(r2*100):.1f}% of variance explained)")
+            print(f"Slope: {slope:.2f} (For each 1% increase in discount, profit margin changes by {slope:.2f}%)")
+            print("\n")
+<img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
-
-
+-- Calculating break-even discount (where profit margin = 0).
+            break_even_discount = -intercept / slope if slope != 0 else np.nan
+            print(f"Break-even discount: {break_even_discount:.2%}")
+            print(f"Interpretation: Products typically become unprofitable when discounts exceed {break_even_discount:.1%}")
+<img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
 
 
 3. 
