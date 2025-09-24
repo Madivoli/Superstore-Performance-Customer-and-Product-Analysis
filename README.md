@@ -28,7 +28,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 **4. Returns Analysis:**
 
     •	Why are products being returned? What patterns distinguish returned orders from kept orders? (e.g., higher discounts, specific product categories, certain shipping methods, lower profit margins?). 
-    •	Can we predict the probability of an order being returned based on factors like discount, product category, and profit? Python
+    •	Can we predict the probability of an order being returned based on factors like discount, product category, and profit? 
 
 **Proposed Methods**
 
@@ -264,6 +264,76 @@ Displaying the new columns
     file_path = "C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\ss_clean.csv"
     if os.path.exists(file_path):
         print("File successfully created!")
+
+## DATA ANALYSIS
+
+**-- Profitability & Loss Analysis**
+
+1. Factors that correlate with a product or order generating a loss (negative profit)
+
+    import pandas as pd
+    import numpy as np
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+
+-- Creating a binary target variable for loss-making products
+    ss['is_loss'] = (ss['profit'] < 0).astype(int)
+
+-- Selecting only numeric columns for correlation analysis
+    numeric_columns = ss.select_dtypes(include=[np.number]).columns
+
+-- Calculating correlations with the loss indicator using only numeric columns
+    correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False)
+
+    print("Correlation with Loss Making:")
+    print(correlation_with_loss)
+<img width="973" height="255" alt="image" src="https://github.com/user-attachments/assets/9e16e5e4-569a-4823-8562-9093d1369307" />
+
+**Interpretation:**
+
+• There is **a strong positive correlation between discount and is_loss** (r = 0.753921). This indicates that a higher discount is strongly associated with an increased likelihood of a transaction resulting in a loss. In other words, larger discounts directly reduce profit margins.
+
+• There is **a weak positive correlation between the dollar amount of the discount and is_loss** (r = 0.169223). This suggests that a higher absolute dollar discount also correlates with losses. Larger discount amounts (in dollars) increase the risk of incurring losses.
+
+• The **correlation between total cost and is_loss is very weak** (r = 0.118892). The cost of an item has little to no direct linear relationship with whether a transaction results in a loss. Other factors, such as sales price and discount, play a more significant role.
+
+• Unit price, sales, processing days, and quantity show **no significant linear relationship with the occurrence of a loss**. All of these variables have correlations very close to zero, ranging from -0.002504 to 0.025537.
+
+• Profit margin (r = -0.765811) has **a strong negative correlation**. As the profit margin decreases, the likelihood of a loss increases. A low profit margin directly leads to a loss, while higher profit margins strongly protect against losses.
+
+• Net profit margin (r = -0.591829) exhibits **a moderately strong negative correlation**. Similar to profit margin, a lower net profit margin is associated with a greater chance of incurring a loss.
+
+• There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
+
+2. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## DATA VISUALIZATION
 
