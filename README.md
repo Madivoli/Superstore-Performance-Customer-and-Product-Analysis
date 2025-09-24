@@ -114,3 +114,25 @@ o	A trend line showing Sales and Profit over time (2016-2020).
     file_path = "C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\superstore.csv"
     if os.path.exists(file_path):
     print("File successfully created!")
+
+-- Renaming columns
+
+    import pandas as pd
+
+        sc = pd.read_csv("C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\superstore.csv")
+
+    sc.rename(columns={
+        'Order ID': 'order_id', 'Order Date': 'order_date','Ship Date': 'ship_date',
+        'Ship Mode': 'ship_mode', 'Customer ID': 'customer_id','Customer Name': 'customer_name',  
+        'Segment': 'segment', 'Country/Region': 'country','City': 'city',
+        'State': 'state', 'Postal Code': 'postal_code','Region': 'region',
+        'Product ID': 'product_id', 'Category': 'category','Sub-Category': 'sub_category',
+        'Product Name': 'product_name', 'Sales': 'sales','Quantity': 'quantity',
+        'Discount': 'discount', 'Profit': 'profit','Returned': 'returned'
+    }, inplace=True)
+
+    print(sc.columns)
+<img width="956" height="108" alt="image" src="https://github.com/user-attachments/assets/6b76d2ea-8ff7-401e-abc1-46c8b85a2ac1" />
+
+
+    
