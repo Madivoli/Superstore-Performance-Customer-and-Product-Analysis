@@ -273,8 +273,11 @@ Displaying the new columns
 1. What factors correlate with a product or an order generating a loss (negative profit)?
 
     import pandas as pd
+   
     import numpy as np
+   
     import seaborn as sns
+   
     import matplotlib.pyplot as plt
 
 -- Creating a binary target variable for loss-making products
@@ -311,8 +314,45 @@ Displaying the new columns
 • There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
 
 
-2. Is there a relationship between discount levels and profitability?
+2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?
 
+            import pandas as pd
+            import numpy as np
+            import matplotlib.pyplot as plt
+            import seaborn as sns
+            from sklearn.linear_model import LinearRegression
+            from sklearn.metrics import r2_score
+            import scipy.stats as stats
+
+
+-- Establishing variables
+        X = ss[['discount']]  # Independent variable
+        y = ss['profit_margin']  # Dependent variable
+
+-- Removing any rows with missing values
+        data = pd.concat([X, y], axis=1).dropna()
+        X_clean = data[['discount']]
+        y_clean = data['profit_margin']
+
+# Fitting SLR model
+model = LinearRegression()
+model.fit(X_clean, y_clean)
+
+# Making predictions
+y_pred = model.predict(X_clean)
+
+# Calculating R-squared
+r2 = r2_score(y_clean, y_pred)
+
+# Establishing regression coefficients
+slope = model.coef_[0]
+intercept = model.intercept_
+
+print("=== SIMPLE LINEAR REGRESSION RESULTS: Discount vs Profit Margin ===")
+print(f"Regression Equation: Profit Margin = {intercept:.2f} + ({slope:.2f} × Discount)")
+print(f"R-squared: {r2:.4f} ({(r2*100):.1f}% of variance explained)")
+print(f"Slope: {slope:.2f} (For each 1% increase in discount, profit margin changes by {slope:.2f}%)")
+print("\n")
 
 
 
