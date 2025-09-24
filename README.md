@@ -1,4 +1,4 @@
-<img width="977" height="642" alt="image" src="https://github.com/user-attachments/assets/bccb8a49-6fb8-494a-8954-fb880dcb19c5" />## SUPERSTORE PERFORMANCE, CUSTOMER, AND PRODUCT ANALYSIS
+## SUPERSTORE PERFORMANCE, CUSTOMER, AND PRODUCT ANALYSIS
 
 ## Objective
 
@@ -469,6 +469,11 @@ There exists a **strong negative linear relationship between discount and profit
     LIMIT 10;
 
 <img width="977" height="555" alt="image" src="https://github.com/user-attachments/assets/6603a95c-3b42-4d4c-bcfe-055633d4027d" />
+
+
+
+<img width="977" height="642" alt="image" src="https://github.com/user-attachments/assets/bccb8a49-6fb8-494a-8954-fb880dcb19c5" />
+
 
 
 **4. Are the loss-making products concentrated in certain categories that might be used to attract customers?**
