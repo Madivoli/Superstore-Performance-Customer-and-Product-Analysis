@@ -87,7 +87,9 @@ o	A trend line showing Sales and Profit over time (2016-2020).
 
 ## DATA PROCESSING, CLEANING AND MANIPULATION
 
--- Data processing:
+-- **Data processing:**
+
+-- Joining multiple excel sheets into a combined sheet
 
     import pandas as pd
     file_path = ("C:\\Users\\hp\\OneDrive\\Projects\\FMCG\\dataset\\Superstore (2016-2020).xlsx")
