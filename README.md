@@ -357,6 +357,10 @@ Displaying the new columns
             print("\n")
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
+**Interpretations:**
+
+There exists a **strong negative linear relationship between discount and profit margin**. This finding corroborates the previous correlation results (r = -0.76). The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**. The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**. The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**. Therefore, **discount serves as a very strong predictor of profit margin** within this model.
+
 -- Calculating break-even discount (where profit margin = 0).
 
             break_even_discount = -intercept / slope if slope != 0 else np.nan
@@ -365,10 +369,88 @@ Displaying the new columns
 <img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
 
 
-3. 
+**3. Which product categories, sub-categories, or specific products are the most and least profitable?**
+
+-- Creating a staging table
+
+    CREATE TABLE ss_staging	
+    LIKE ss_cleaned;
+    
+-- Inserting data
+
+    INSERT ss_staging
+    SELECT *
+    FROM ss_cleaned;
+
+-- Profitability by category (ranked from least to most profitabl:
+
+    SELECT 
+        category,
+        COUNT(DISTINCT order_id) AS total_orders,
+        SUM(quantity) AS total_quantity_sold,
+        ROUND(SUM(sales), 2) AS total_sales,
+        ROUND(SUM(profit), 2) AS total_profit,
+        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
+        ROUND(AVG(profit_margin), 2) AS avg_profit_margin_percent,
+    
+    -- Profitability ranking
+        RANK() OVER (ORDER BY SUM(profit) DESC) AS profit_rank,
+        CASE 
+            WHEN SUM(profit) > 0 THEN 'Profitable'
+        ELSE 'Loss-Making'
+        END AS profitability_status
+        FROM ss_staging
+    GROUP BY category
+    ORDER BY total_profit DESC;
+<img width="977" height="452" alt="image" src="https://github.com/user-attachments/assets/1c2e932a-a531-4afd-94f9-451d1eec7784" />
+
+-- Profitability by sub-categories
+    SELECT 
+        category,
+        sub_category,
+        COUNT(DISTINCT order_id) AS total_orders,
+        SUM(quantity) AS total_quantity_sold,
+        ROUND(SUM(sales), 2) AS total_sales,
+        ROUND(SUM(profit), 2) AS total_profit,
+        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
+        ROUND(AVG(profit_margin), 2) AS avg_profit_margin_percent,
+    
+        RANK() OVER (PARTITION BY category ORDER BY SUM(profit) DESC) AS category_profit_rank,
+        RANK() OVER (ORDER BY SUM(profit) DESC) AS overall_profit_rank,
+        CASE 
+            WHEN SUM(profit) > 0 THEN 'Profitable'
+            ELSE 'Loss-Making'
+        END AS profitability_status
+    FROM ss_staging
+    GROUP BY category, sub_category
+    ORDER BY total_profit DESC;
+<img width="977" height="605" alt="image" src="https://github.com/user-attachments/assets/18037b69-d11c-47a3-9f17-14204b4aeee7" />
+
+-- Top 10 most profitable specific products
+
+    SELECT 
+        product_id,
+        product_name,
+        category,
+        sub_category,
+        COUNT(DISTINCT order_id) AS total_orders,
+        SUM(quantity) AS total_quantity_sold,
+        ROUND(SUM(sales), 2) AS total_sales,
+        ROUND(SUM(profit), 2) AS total_profit,
+        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
+        ROUND(AVG(unit_price), 2) AS avg_unit_price,
+        ROUND(AVG(discount) * 100, 2) AS avg_discount_percent
+    FROM ss_staging
+    GROUP BY product_id, product_name, category, sub_category
+    HAVING total_sales > 0  
+    ORDER BY total_profit DESC
+    LIMIT 10;
+<img width="977" height="452" alt="image" src="https://github.com/user-attachments/assets/7af09442-12df-4375-8a7e-c5b883d8b7a9" />
+
+**4. Are the loss-making products concentrated in certain categories that might be used to attract customers?**
 
 
-
+**Customer Segmentation and Sales Analysis**
 
 
 
