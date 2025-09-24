@@ -183,9 +183,9 @@ This will ensure the index is sequential without any gaps from the removed row
 
     sc = sc.reset_index(drop=True)
 
--- Data manipulation
+**-- Data manipulation**
 
-# Creating new features:
+-- Creating new features:
     1. Profit margin
     2. Unit price
     3. Total cost
@@ -198,32 +198,32 @@ This will ensure the index is sequential without any gaps from the removed row
     import numpy as np
 
 Calculating profit margin (profit as a percentage of sales)
-    sc['profit_margin'] = (sc['profit'] / sc['sales']) * 100
+        sc['profit_margin'] = (sc['profit'] / sc['sales']) * 100
 
 Handle cases where sales are zero to avoid division by zero
-    sc['profit_margin'] = np.where(sc['sales'] == 0, 0, sc['profit_margin'])
+        sc['profit_margin'] = np.where(sc['sales'] == 0, 0, sc['profit_margin'])
 
 Calculating unit price (price per item)
-    sc['unit_price'] = sc['sales'] / sc['quantity']
+        sc['unit_price'] = sc['sales'] / sc['quantity']
 
 Calculating total cost (sales minus profit)
-    sc['total_cost'] = sc['sales'] - sc['profit']
+        sc['total_cost'] = sc['sales'] - sc['profit']
 
 Calculating discount amount (sales * discount percentage)
-    sc['discount_amount'] = sc['sales'] * sc['discount']
+        sc['discount_amount'] = sc['sales'] * sc['discount']
 
 Calculating net sales (sales after discount)
-    sc['net_sales'] = sc['sales'] - sc['discount_amount']
+        sc['net_sales'] = sc['sales'] - sc['discount_amount']
 
 Calculating net profit margin (profit as a percentage of net sales)
-    sc['net_profit_margin'] = (sc['profit'] / sc['net_sales']) * 100
-    sc['net_profit_margin'] = np.where(sc['net_sales'] == 0, 0, sc['net_profit_margin'])
+        sc['net_profit_margin'] = (sc['profit'] / sc['net_sales']) * 100
+        sc['net_profit_margin'] = np.where(sc['net_sales'] == 0, 0, sc['net_profit_margin'])
 
 Creating a flag for profitable transactions
-    sc['is_profitable'] = sc['profit'] > 0
+        sc['is_profitable'] = sc['profit'] > 0
 
 Creating a flag for heavily discounted items (e.g., discount > 30%)
-    sc['high_discount'] = sc['discount'] > 0.3
+        sc['high_discount'] = sc['discount'] > 0.3
 
 Calculating order processing time (ship date - order date)
-    sc['processing_days'] = (sc['ship_date'] - sc['order_date']).dt.days
+        sc['processing_days'] = (sc['ship_date'] - sc['order_date']).dt.days
