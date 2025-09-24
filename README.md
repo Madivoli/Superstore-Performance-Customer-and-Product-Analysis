@@ -37,6 +37,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     4.	Clustering: Using algorithms like K-Means to segment customers into distinct groups based on their total sales, profit generated, and frequency of orders.
 
 **Tools and Their Proposed Application**
+
     •	Excel: Initial data exploration.
         o	Use filters and pivot tables to quickly get a sense of sales distribution by region, category, and year.
         o	Calculate quick metrics like overall profit margin.
