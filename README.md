@@ -405,6 +405,7 @@ There exists a **strong negative linear relationship between discount and profit
 <img width="977" height="452" alt="image" src="https://github.com/user-attachments/assets/1c2e932a-a531-4afd-94f9-451d1eec7784" />
 
 -- Profitability by sub-categories
+
     SELECT 
         category,
         sub_category,
