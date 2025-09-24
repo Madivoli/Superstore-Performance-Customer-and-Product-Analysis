@@ -141,12 +141,12 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
 -- Checking for missing values
 
-# For numeric values, using appropriate imputation techniques(such as mean, median, or mode) or using '0'. For text-based values, using 'unknown'
+For numeric values, using appropriate imputation techniques(such as mean, median, or mode) or using '0'. For text-based values, using 'unknown'
 
     print(sc.isnull().sum())
 <img width="949" height="393" alt="image" src="https://github.com/user-attachments/assets/6a9b27ff-8e28-47a4-8300-d9e035bd3d74" />
 
-# The dataset contains one (1) missing value in the returned column.
+The dataset contains one (1) missing value in the returned column.
 
 -- Handling missing values
 
@@ -155,7 +155,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     print(sc.isnull().sum())
 <img width="964" height="389" alt="image" src="https://github.com/user-attachments/assets/d81873e1-f871-4904-af19-1a452f06f302" />
 
-# The dataset is free of missing values
+The dataset is free of missing values
 
 -- Checking for duplicates
 
@@ -166,7 +166,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     print(duplicates)
 <img width="982" height="310" alt="image" src="https://github.com/user-attachments/assets/3c8517be-ff33-42d1-a86e-29859b569cff" />
 
-## The dataset has 1 duplicate row 
+The dataset has 1 duplicate row 
 
 -- Removing duplicates
 
@@ -179,7 +179,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
 -- Resetting the table's index column
 
-# This will ensure the index is sequential without any gaps from the removed row
+This will ensure the index is sequential without any gaps from the removed row
 
     sc = sc.reset_index(drop=True)
 
@@ -197,33 +197,33 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     import pandas as pd
     import numpy as np
 
-# Calculating profit margin (profit as a percentage of sales)
+Calculating profit margin (profit as a percentage of sales)
     sc['profit_margin'] = (sc['profit'] / sc['sales']) * 100
 
-# Handle cases where sales are zero to avoid division by zero
+Handle cases where sales are zero to avoid division by zero
     sc['profit_margin'] = np.where(sc['sales'] == 0, 0, sc['profit_margin'])
 
-# Calculating unit price (price per item)
+Calculating unit price (price per item)
     sc['unit_price'] = sc['sales'] / sc['quantity']
 
-# Calculating total cost (sales minus profit)
+Calculating total cost (sales minus profit)
     sc['total_cost'] = sc['sales'] - sc['profit']
 
-# Calculating discount amount (sales * discount percentage)
+Calculating discount amount (sales * discount percentage)
     sc['discount_amount'] = sc['sales'] * sc['discount']
 
-# Calculating net sales (sales after discount)
+Calculating net sales (sales after discount)
     sc['net_sales'] = sc['sales'] - sc['discount_amount']
 
-# Calculating net profit margin (profit as a percentage of net sales)
+Calculating net profit margin (profit as a percentage of net sales)
     sc['net_profit_margin'] = (sc['profit'] / sc['net_sales']) * 100
     sc['net_profit_margin'] = np.where(sc['net_sales'] == 0, 0, sc['net_profit_margin'])
 
-# Creating a flag for profitable transactions
+Creating a flag for profitable transactions
     sc['is_profitable'] = sc['profit'] > 0
 
-# Creating a flag for heavily discounted items (e.g., discount > 30%)
+Creating a flag for heavily discounted items (e.g., discount > 30%)
     sc['high_discount'] = sc['discount'] > 0.3
 
-# Calculate order processing time (ship date - order date)
+Calculating order processing time (ship date - order date)
     sc['processing_days'] = (sc['ship_date'] - sc['order_date']).dt.days
