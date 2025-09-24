@@ -61,7 +61,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
 ## DATA PROCESSING, CLEANING AND MANIPULATION
 
--- **Data processing:**
+**-- Data processing:**
 
 -- Joining multiple Excel sheets into a combined sheet
 
@@ -137,7 +137,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 <img width="963" height="444" alt="image" src="https://github.com/user-attachments/assets/c8ac3367-60e9-44fb-b8b1-41c098932555" />
 
 
---** Data cleaning:**
+**-- Data cleaning:**
 
 -- Checking for missing values
 
@@ -198,32 +198,69 @@ This will ensure the index is sequential without any gaps from the removed row
     import numpy as np
 
 Calculating profit margin (profit as a percentage of sales)
-        sc['profit_margin'] = (sc['profit'] / sc['sales']) * 100
+
+    sc['profit_margin'] = (sc['profit'] / sc['sales']) * 100
 
 Handle cases where sales are zero to avoid division by zero
-        sc['profit_margin'] = np.where(sc['sales'] == 0, 0, sc['profit_margin'])
+
+    sc['profit_margin'] = np.where(sc['sales'] == 0, 0, sc['profit_margin'])
 
 Calculating unit price (price per item)
-        sc['unit_price'] = sc['sales'] / sc['quantity']
+
+    sc['unit_price'] = sc['sales'] / sc['quantity']
 
 Calculating total cost (sales minus profit)
-        sc['total_cost'] = sc['sales'] - sc['profit']
+
+    sc['total_cost'] = sc['sales'] - sc['profit']
 
 Calculating discount amount (sales * discount percentage)
-        sc['discount_amount'] = sc['sales'] * sc['discount']
+
+    sc['discount_amount'] = sc['sales'] * sc['discount']
 
 Calculating net sales (sales after discount)
-        sc['net_sales'] = sc['sales'] - sc['discount_amount']
+
+    sc['net_sales'] = sc['sales'] - sc['discount_amount']
 
 Calculating net profit margin (profit as a percentage of net sales)
-        sc['net_profit_margin'] = (sc['profit'] / sc['net_sales']) * 100
-        sc['net_profit_margin'] = np.where(sc['net_sales'] == 0, 0, sc['net_profit_margin'])
+
+    sc['net_profit_margin'] = (sc['profit'] / sc['net_sales']) * 100
+    sc['net_profit_margin'] = np.where(sc['net_sales'] == 0, 0, sc['net_profit_margin'])
 
 Creating a flag for profitable transactions
-        sc['is_profitable'] = sc['profit'] > 0
+
+    sc['is_profitable'] = sc['profit'] > 0
 
 Creating a flag for heavily discounted items (e.g., discount > 30%)
-        sc['high_discount'] = sc['discount'] > 0.3
+
+    sc['high_discount'] = sc['discount'] > 0.3
 
 Calculating order processing time (ship date - order date)
-        sc['processing_days'] = (sc['ship_date'] - sc['order_date']).dt.days
+
+    sc['processing_days'] = (sc['ship_date'] - sc['order_date']).dt.days
+
+Displaying the new columns
+
+    print(sc[['sales', 'profit', 'quantity', 'discount', 
+          'profit_margin', 'unit_price', 'total_cost', 
+          'discount_amount', 'net_sales', 'net_profit_margin',
+          'is_profitable', 'high_discount']].head(10))
+<img width="887" height="519" alt="image" src="https://github.com/user-attachments/assets/672ce9b9-ba9f-4906-a4ce-a307805743f6" />
+
+-- Summary statistics of the new features
+
+    print("\nSummary statistics:")
+    print(sc[['profit_margin', 'unit_price', 'total_cost', 
+          'discount_amount', 'net_profit_margin', 'processing_days']].describe())
+
+
+-- Creating a clean and enhanced CSV file
+
+    sc.to_csv("C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\ss_clean.csv", index=False)
+
+-- Saving the CSV file
+
+    import os
+    file_path = "C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\ss_clean.csv"
+    if os.path.exists(file_path):
+        print("File successfully created!")
+
