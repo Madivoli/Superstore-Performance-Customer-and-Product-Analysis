@@ -472,7 +472,7 @@ There exists a **strong negative linear relationship between discount and profit
 
 
 
-<img width="977" height="642" alt="image" src="https://github.com/user-attachments/assets/bccb8a49-6fb8-494a-8954-fb880dcb19c5" />
+
 
 
 
