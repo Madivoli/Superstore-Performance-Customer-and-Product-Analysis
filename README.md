@@ -136,9 +136,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
     print("\nData types after conversion:")
     print(sc.dtypes)
-<img width="975" height="706" alt="image" src="https://github.com/user-attachments/assets/9618859f-29e1-444c-978d-4bbc19802852" />
-
-
+<img width="975" height="654" alt="image" src="https://github.com/user-attachments/assets/289d2a53-a067-4d27-a7bf-69c0d7b1676d" />
 
 **-- Data cleaning:**
 
@@ -147,7 +145,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 For numeric values, using appropriate imputation techniques(such as mean, median, or mode) or using '0'. For text-based values, using 'unknown'
 
     print(sc.isnull().sum())
-<img width="949" height="393" alt="image" src="https://github.com/user-attachments/assets/6a9b27ff-8e28-47a4-8300-d9e035bd3d74" />
+<img width="975" height="623" alt="image" src="https://github.com/user-attachments/assets/0cb5a9ab-17f4-49df-a3b0-00f7bb5373bc" />
 
 The dataset contains one (1) missing value in the returned column.
 
@@ -156,7 +154,8 @@ The dataset contains one (1) missing value in the returned column.
     sc['returned'] = sc['returned'].fillna('No')
 
     print(sc.isnull().sum())
-<img width="964" height="389" alt="image" src="https://github.com/user-attachments/assets/d81873e1-f871-4904-af19-1a452f06f302" />
+<img width="975" height="618" alt="image" src="https://github.com/user-attachments/assets/0755dbb9-f4be-49b6-87ad-e501f8910220" />
+
 
 The dataset is free of missing values
 
@@ -167,7 +166,7 @@ The dataset is free of missing values
 
     duplicates = sc[sc.duplicated()]
     print(duplicates)
-<img width="982" height="310" alt="image" src="https://github.com/user-attachments/assets/3c8517be-ff33-42d1-a86e-29859b569cff" />
+<img width="975" height="562" alt="image" src="https://github.com/user-attachments/assets/09148a39-412c-400f-9069-c476518a79d1" />
 
 The dataset has 1 duplicate row 
 
@@ -178,7 +177,7 @@ The dataset has 1 duplicate row
     print(f"Number of duplicate rows after removal: {sc.duplicated().sum()}")
 
     print(f"DataFrame shape after removing duplicates: {sc.shape}")
-<img width="972" height="51" alt="image" src="https://github.com/user-attachments/assets/d14dc2e8-603e-473d-8acc-f0e4f44706ff" />
+<img width="975" height="57" alt="image" src="https://github.com/user-attachments/assets/745a7c01-1f22-47bc-8cf9-a4240fdef198" />
 
 -- Resetting the table's index column
 
@@ -247,14 +246,14 @@ Displaying the new columns
           'profit_margin', 'unit_price', 'total_cost', 
           'discount_amount', 'net_sales', 'net_profit_margin',
           'is_profitable', 'high_discount']].head(10))
-<img width="887" height="519" alt="image" src="https://github.com/user-attachments/assets/672ce9b9-ba9f-4906-a4ce-a307805743f6" />
+<img width="975" height="1291" alt="image" src="https://github.com/user-attachments/assets/02c3b9bf-5dd4-4216-a591-0407f52499f3" />
 
 -- Summary statistics for the new features
 
     print("\nSummary statistics:")
     print(sc[['profit_margin', 'unit_price', 'total_cost', 
           'discount_amount', 'net_profit_margin', 'processing_days']].describe())
-<img width="954" height="415" alt="image" src="https://github.com/user-attachments/assets/d156d962-09a6-4a02-96aa-0c78ca2a03c6" />
+<img width="975" height="597" alt="image" src="https://github.com/user-attachments/assets/31cc5d6f-e55d-4d88-88b8-00dc6d68cebe" />
 
 -- Creating a clean and enhanced CSV file
 
