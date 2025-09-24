@@ -89,7 +89,7 @@ o	A trend line showing Sales and Profit over time (2016-2020).
 
 -- **Data processing:**
 
--- Joining multiple excel sheets into a combined sheet
+-- Joining multiple Excel sheets into a combined sheet
 
     import pandas as pd
     file_path = ("C:\\Users\\hp\\OneDrive\\Projects\\FMCG\\dataset\\Superstore (2016-2020).xlsx")
@@ -102,3 +102,15 @@ o	A trend line showing Sales and Profit over time (2016-2020).
       sc = pd.concat(superstore_list, ignore_index=True)
     
     print(sc.head())
+
+-- Saving the combined sheets as a CSV file
+
+    import pandas as pd
+    sc.to_csv("C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\superstore.csv", index=False)
+
+-- Verifying if the file was created correctly
+
+    import os
+    file_path = "C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\superstore.csv"
+    if os.path.exists(file_path):
+    print("File successfully created!")
