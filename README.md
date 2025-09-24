@@ -269,7 +269,7 @@ Displaying the new columns
 
 **-- Profitability & Loss Analysis**
 
-1. Factors that correlate with a product or order generating a loss (negative profit)
+1. What factors correlate with a product or an order generating a loss (negative profit)?
 
     import pandas as pd
     import numpy as np
@@ -277,17 +277,21 @@ Displaying the new columns
     import matplotlib.pyplot as plt
 
 -- Creating a binary target variable for loss-making products
+
     ss['is_loss'] = (ss['profit'] < 0).astype(int)
 
 -- Selecting only numeric columns for correlation analysis
+
     numeric_columns = ss.select_dtypes(include=[np.number]).columns
 
 -- Calculating correlations with the loss indicator using only numeric columns
+
     correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False)
 
     print("Correlation with Loss Making:")
     print(correlation_with_loss)
-<img width="973" height="255" alt="image" src="https://github.com/user-attachments/assets/9e16e5e4-569a-4823-8562-9093d1369307" />
+<img width="975" height="393" alt="image" src="https://github.com/user-attachments/assets/e6a67dae-ccbc-492a-8438-a91d4012f392" />
+<img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
 **Interpretation:**
 
@@ -305,7 +309,15 @@ Displaying the new columns
 
 • There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
 
-2. 
+
+2. Is there a relationship between discount levels and profitability?
+
+
+
+
+
+
+3. 
 
 
 
