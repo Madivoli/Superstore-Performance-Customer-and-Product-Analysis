@@ -532,38 +532,13 @@ There exists a **strong negative linear relationship between discount and profit
     FROM ss_staging
     GROUP BY customer_id, customer_name, region
     ORDER BY total_profit DESC
-    LIMIT 20;
+    LIMIT 3;
 <img width="992" height="529" alt="image" src="https://github.com/user-attachments/assets/93c83421-4313-422c-abd9-35633324af33" />
 
 **Key Insight:** Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.
 
 
--- Customer segmentation by profit
-
-    SELECT 
-        customer_name,
-        region,
-        total_sales,
-        total_profit,
-        CASE 
-            WHEN total_profit > 10000 THEN 'Platinum'
-            WHEN total_profit BETWEEN 5000 AND 10000 THEN 'Gold'
-            WHEN total_profit BETWEEN 1000 AND 5000 THEN 'Silver'
-            ELSE 'Bronze'
-        END AS customer_tier,
-        RANK() OVER (ORDER BY total_profit DESC) AS profit_rank
-    FROM (
-        SELECT 
-            customer_name,
-            region,
-            SUM(sales) AS total_sales,
-            SUM(profit) AS total_profit
-        FROM orders
-        GROUP BY customer_name, region
-    ) customer_summary
-    ORDER BY total_profit DESC;
-
--- Customer segmentation by profit and tier
+## Customer segmentation by profit and tier
 
     SELECT 
         customer_name,
@@ -589,15 +564,153 @@ There exists a **strong negative linear relationship between discount and profit
     ORDER BY total_profit DESC;
 <img width="1022" height="677" alt="image" src="https://github.com/user-attachments/assets/293bde8a-a99d-496f-80da-63224b1c10e2" />
 
+**Key Insight:** The Gold Tier is the most profitable customer segment. Customers such as Sanjit Chand and Tamara Chand generate significantly more profit than customers in other tiers. Sanjit Chand, in particular, is a highly valuable customer, contributing over $9,000 in profit.
+
 -- Regional customer value analysis
 
+    SELECT 
+        region,
+        COUNT(DISTINCT customer_id) AS total_customers,
+        ROUND(SUM(sales), 2) AS regional_sales,
+        ROUND(SUM(profit), 2) AS regional_profit,
+        ROUND(AVG(profit), 2) AS avg_profit_per_customer,
+        SUM(CASE WHEN profit > 0 THEN 1 ELSE 0 END) AS profitable_customers,
+        ROUND(SUM(CASE WHEN profit > 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(DISTINCT customer_id), 2) AS profitability_rate
+    FROM (
+        SELECT 
+            region,
+            customer_id,
+            SUM(sales) AS sales,
+            SUM(profit) AS profit
+        FROM ss_staging
+        GROUP BY region, customer_id
+    ) customer_metrics
+    GROUP BY region
+    ORDER BY regional_profit DESC;
+<img width="947" height="677" alt="image" src="https://github.com/user-attachments/assets/a5a4fd3e-9bf1-4dab-aeed-398c88b8861c" />
 
+**Key Insight:** The West region has the highest number of profitable customers, totalling 615, and boasts an impressive profitability rate of 90.31%. This indicates that more than 90% of customers in the West are profitable, making it the most valuable region for the business.
 
-2. What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?) 
+**2. What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)**
 
+-- RFM Analysis (Recency, Frequency, Monetary)
 
+    WITH customer_metrics AS (
+      SELECT 
+        customer_id,
+        region,
+        COALESCE(DATEDIFF('2020-09-09', MAX(order_date)), 365) as Recency,
+        COUNT(DISTINCT order_id) as Frequency,
+        ROUND(COALESCE(SUM(sales), 0), 2) as Monetary,
+        ROUND(COALESCE(SUM(profit), 0), 2) as Total_Profit,
+        AVG(profit) as Avg_Profit_Per_Order
+      FROM ss_staging
+      GROUP BY customer_id, region
+        ),
+        rfm_scores AS (
+    SELECT *,
+    CASE 
+          WHEN Recency <= 30 THEN 5    -- Last 30 days
+          WHEN Recency <= 90 THEN 4    -- Last 3 months
+          WHEN Recency <= 180 THEN 3   -- Last 6 months
+          WHEN Recency <= 365 THEN 2   -- Last year
+          ELSE 1                       -- Over 1 year
+        END as R_Score,
+    CASE 
+          WHEN Frequency >= 15 THEN 5
+          WHEN Frequency >= 10 THEN 4
+          WHEN Frequency >= 5 THEN 3
+          WHEN Frequency >= 2 THEN 2
+          ELSE 1
+        END as F_Score,
+    CASE 
+          WHEN Monetary >= 5000 THEN 5
+          WHEN Monetary >= 2500 THEN 4
+          WHEN Monetary >= 1000 THEN 3
+          WHEN Monetary >= 500 THEN 2
+          ELSE 1
+        END as M_Score
+      FROM customer_metrics
+    )
+    SELECT 
+      customer_id,
+      region,
+      Recency,
+      Frequency,
+      Monetary,
+      Total_Profit,
+      R_Score,
+      F_Score,
+      M_Score,
+      (R_Score + F_Score + M_Score) as RFM_Score,
+  CASE 
+        WHEN R_Score = 5 AND F_Score >= 4 AND M_Score >= 4 THEN 'Champions'
+        WHEN R_Score >= 4 AND F_Score >= 4 AND M_Score >= 3 THEN 'Loyal Customers'
+        WHEN R_Score = 5 AND F_Score <= 2 THEN 'New Customers'
+        WHEN R_Score >= 3 AND F_Score >= 3 AND M_Score >= 3 THEN 'Potential Loyalists'
+        WHEN R_Score = 2 AND M_Score >= 3 THEN 'At Risk'
+        WHEN R_Score = 1 THEN 'Lost Customers'
+        WHEN Total_Profit < 0 THEN 'Unprofitable'
+        ELSE 'Need Attention'
+      END as Segment
+    FROM rfm_scores
+    ORDER BY Monetary DESC, Recency ASC;
 
+**Interpretation:** All customers have a recency score of 2, indicating that no one has made a purchase recently, which is a significant concern. The last order was placed 365 days ago. The frequency score ranges from 1 to 4, with a higher score indicating more recent orders. The monetary score ranges from 1 to 5, with a higher score indicating greater spending. All customers are categorised as "At Risk" due to their low R Score.
 
+-- What patterns distinguish high-value customers?
 
+-- Comparing high-value customer segments vs other customers using RFM segments
 
+    WITH customer_analysis AS (
+      SELECT 
+        customer_id,
+    -- RFM Metrics
+        COALESCE(DATEDIFF('2020-09-09', MAX(order_date)), 365) as recency,
+        COUNT(DISTINCT order_id) as frequency,
+        COALESCE(SUM(sales), 0) as monetary,
+        COALESCE(SUM(profit), 0) as total_profit,
+    
+    -- Value Segment
+        CASE 
+          WHEN COALESCE(SUM(sales), 0) >= 10000 THEN 'Platinum'
+          WHEN COALESCE(SUM(sales), 0) >= 5000 THEN 'Gold'
+          WHEN COALESCE(SUM(sales), 0) >= 1000 THEN 'Silver'
+          ELSE 'Bronze'
+        END as value_segment,
+    
+    -- Additional metrics
+        AVG(sales) as avg_order_value,
+        AVG(discount) * 100 as discount_rate_pct,
+        SUM(CASE WHEN category = 'Furniture' THEN sales ELSE 0 END) as furniture_sales,
+        SUM(CASE WHEN category = 'Office Supplies' THEN sales ELSE 0 END) as office_supplies_sales,
+        SUM(CASE WHEN category = 'Technology' THEN sales ELSE 0 END) as technology_sales,
+        SUM(CASE WHEN returned = 'Yes' THEN 1 ELSE 0 END) as return_count
+      FROM ss_staging
+      GROUP BY customer_id
+    )
 
+    SELECT
+        value_segment,
+        COUNT(*) AS customer_count,
+        ROUND(AVG(monetary), 2) AS avg_sales,
+        ROUND(AVG(total_profit), 2) AS avg_profit,
+        ROUND(AVG(frequency), 2) AS avg_orders,
+        ROUND(AVG(monetary / NULLIF(frequency, 0)), 2) AS avg_order_value,
+        ROUND(AVG(discount_rate_pct), 2) AS avg_discount_rate,
+        ROUND(AVG(furniture_sales) / AVG(monetary) * 100, 2) AS furniture_pct,
+        ROUND(AVG(office_supplies_sales) / AVG(monetary) * 100, 2) AS office_supplies_pct,
+        ROUND(AVG(technology_sales) / AVG(monetary) * 100, 2) AS technology_pct,
+        ROUND(AVG(return_count), 2) AS avg_returns
+    FROM
+        customer_analysis
+    GROUP BY
+        value_segment
+    ORDER BY
+        CASE value_segment
+            WHEN 'Platinum' THEN 1
+            WHEN 'Gold' THEN 2
+            WHEN 'Silver' THEN 3
+            ELSE 4
+        END;
+<img width="977" height="644" alt="image" src="https://github.com/user-attachments/assets/2d1f1c8a-43b5-4c2c-9f7c-1962f24e4b64" />
