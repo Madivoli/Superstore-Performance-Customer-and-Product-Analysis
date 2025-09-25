@@ -478,6 +478,44 @@ There exists a **strong negative linear relationship between discount and profit
 
 **4. Are the loss-making products concentrated in certain categories that might be used to attract customers?**
 
+-- Analysis of loss-making products concentration
+
+    SELECT 
+        category,
+    -- Product counts
+        COUNT(DISTINCT product_id) AS total_products,
+        SUM(CASE WHEN total_profit < 0 THEN 1 ELSE 0 END) AS loss_making_products,
+        ROUND(SUM(CASE WHEN total_profit < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(DISTINCT product_id), 2) AS loss_product_percentage,
+    
+    -- Sales volume
+        SUM(total_quantity) AS total_quantity_sold,
+        SUM(CASE WHEN total_profit < 0 THEN total_quantity ELSE 0 END) AS loss_maker_quantity,
+        ROUND(SUM(CASE WHEN total_profit < 0 THEN total_quantity ELSE 0 END) * 100.0 / SUM(total_quantity), 2) AS                                     loss_maker_quantity_percentage,
+    
+    -- Financial metrics
+        ROUND(SUM(total_profit), 2) AS net_profit,
+        ROUND(SUM(CASE WHEN total_profit < 0 THEN total_profit ELSE 0 END), 2) AS total_loss_amount,
+    
+    -- Loss leader assessment
+        CASE 
+            WHEN SUM(CASE WHEN total_profit < 0 THEN total_quantity ELSE 0 END) > AVG(total_quantity) * 2 THEN 'Potential Loss Leader                     Category'
+            ELSE 'Regular Category'
+            END AS loss_leader_assessment
+    FROM (
+        SELECT 
+            category,
+            product_id,
+            SUM(quantity) AS total_quantity,
+            SUM(sales) AS total_sales,
+            SUM(profit) AS total_profit
+        FROM ss_staging
+        GROUP BY category, product_id
+            ) product_summary
+        GROUP BY category
+        ORDER BY loss_maker_quantity_percentage DESC, total_loss_amount DESC;
+<img width="1350" height="158" alt="image" src="https://github.com/user-attachments/assets/0a387b1f-747a-4e3a-af90-ecea7a17f673" />
+
+
 
 **Customer Segmentation and Sales Analysis**
 
