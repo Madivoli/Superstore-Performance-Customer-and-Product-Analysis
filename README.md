@@ -714,3 +714,7 @@ There exists a **strong negative linear relationship between discount and profit
             ELSE 4
         END;
 <img width="977" height="644" alt="image" src="https://github.com/user-attachments/assets/2d1f1c8a-43b5-4c2c-9f7c-1962f24e4b64" />
+
+
+
+
