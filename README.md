@@ -565,6 +565,33 @@ There exists a **strong negative linear relationship between discount and profit
 
 -- Customer segmentation by profit and tier
 
+    SELECT 
+        customer_name,
+        region,
+        total_sales,
+        total_profit,
+        CASE 
+            WHEN total_profit > 10000 THEN 'Platinum'
+            WHEN total_profit BETWEEN 5000 AND 10000 THEN 'Gold'
+            WHEN total_profit BETWEEN 1000 AND 5000 THEN 'Silver'
+            ELSE 'Bronze'
+        END AS customer_tier,
+        RANK() OVER (ORDER BY total_profit DESC) AS profit_rank
+    FROM (
+        SELECT 
+            customer_name,
+            region,
+            ROUND(SUM(sales), 2) AS total_sales,
+            ROUND(SUM(profit), 2) AS total_profit
+        FROM ss_staging
+        GROUP BY customer_name, region
+    ) customer_summary
+    ORDER BY total_profit DESC;
+<img width="1022" height="677" alt="image" src="https://github.com/user-attachments/assets/293bde8a-a99d-496f-80da-63224b1c10e2" />
+
+-- Regional customer value analysis
+
+
 
 2. What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?) 
 
