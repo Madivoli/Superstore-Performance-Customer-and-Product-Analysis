@@ -471,11 +471,6 @@ There exists a **strong negative linear relationship between discount and profit
 <img width="977" height="555" alt="image" src="https://github.com/user-attachments/assets/6603a95c-3b42-4d4c-bcfe-055633d4027d" />
 
 
-
-
-
-
-
 **4. Are the loss-making products concentrated in certain categories that might be used to attract customers?**
 
 -- Analysis of loss-making products concentration
@@ -513,12 +508,65 @@ There exists a **strong negative linear relationship between discount and profit
             ) product_summary
         GROUP BY category
         ORDER BY loss_maker_quantity_percentage DESC, total_loss_amount DESC;
-<img width="1350" height="158" alt="image" src="https://github.com/user-attachments/assets/0a387b1f-747a-4e3a-af90-ecea7a17f673" />
+<img width="1350" height="117" alt="image" src="https://github.com/user-attachments/assets/d830cd07-e535-4d61-a3be-6dc94a351923" />
 
+**Key Insight:** A significant 32.51% of all loss-making products are concentrated in a single category: Furniture. This suggests a highly uneven distribution of loss-making products across different categories.
 
 
 **Customer Segmentation and Sales Analysis**
 
+**1. Who are our most valuable customers? Can we segment them by sales, profit, or region?**
+
+-- Most valuable customers analysis
+
+## Top customers by sales and profits
+
+    SELECT 
+        customer_id,
+        customer_name,
+        region,
+        ROUND(SUM(sales), 2) AS total_sales,
+        ROUND(SUM(profit), 2) AS total_profit,
+        COUNT(DISTINCT order_id) AS total_orders,
+        ROUND(AVG(profit_margin), 2) AS avg_profit_margin
+    FROM ss_staging
+    GROUP BY customer_id, customer_name, region
+    ORDER BY total_profit DESC
+    LIMIT 20;
+<img width="992" height="529" alt="image" src="https://github.com/user-attachments/assets/93c83421-4313-422c-abd9-35633324af33" />
+
+**Key Insight:** Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.
+
+
+-- Customer segmentation by profit
+
+    SELECT 
+        customer_name,
+        region,
+        total_sales,
+        total_profit,
+        CASE 
+            WHEN total_profit > 10000 THEN 'Platinum'
+            WHEN total_profit BETWEEN 5000 AND 10000 THEN 'Gold'
+            WHEN total_profit BETWEEN 1000 AND 5000 THEN 'Silver'
+            ELSE 'Bronze'
+        END AS customer_tier,
+        RANK() OVER (ORDER BY total_profit DESC) AS profit_rank
+    FROM (
+        SELECT 
+            customer_name,
+            region,
+            SUM(sales) AS total_sales,
+            SUM(profit) AS total_profit
+        FROM orders
+        GROUP BY customer_name, region
+    ) customer_summary
+    ORDER BY total_profit DESC;
+
+-- Customer segmentation by profit and tier
+
+
+2. What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?) 
 
 
 
