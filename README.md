@@ -305,9 +305,7 @@ Displaying the new columns
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
 
-**Key Insight:**
-
-• *There is **a strong positive correlation between discount and is_loss** (r = 0.753921). This suggests that a higher discount is significantly associated with a higher likelihood of a transaction resulting in a loss. In other words, larger discounts directly reduce profit margins.*
+**Key Insight:** *There is **a strong positive correlation between discount and is_loss** (r = 0.753921). This suggests that a higher discount is significantly associated with a higher likelihood of a transaction resulting in a loss. In other words, larger discounts directly reduce profit margins.*
 
 *2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?*
 
@@ -359,9 +357,7 @@ Displaying the new columns
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
 
-**Key Insight:**
-
-*There exists a **strong negative linear relationship between discount and profit margin**. This finding corroborates the previous correlation results (r = -0.76). The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**. The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**. The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**. Therefore, **discount serves as a very strong predictor of profit margin** within this model.*
+**Key Insight:** *There exists a **strong negative linear relationship between discount and profit margin**. This finding corroborates the previous correlation results (r = -0.76). The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**. The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**. The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**. Therefore, **discount serves as a very strong predictor of profit margin** within this model.*
 
 -- Calculating break-even discount (where profit margin = 0).
 
@@ -372,9 +368,7 @@ Displaying the new columns
 <img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
 
 
-**Key Insight**
-
-*The products will become unprofitable when the discount exceeds 21.8%.*
+**Key Insight:** *The products will become unprofitable when the discount exceeds 21.8%.*
 
 *3. Which product categories, sub-categories, or specific products are the most and least profitable?*
 
@@ -521,9 +515,11 @@ Displaying the new columns
             ) product_summary
         GROUP BY category
         ORDER BY loss_maker_quantity_percentage DESC, total_loss_amount DESC;
+
 <img width="1350" height="117" alt="image" src="https://github.com/user-attachments/assets/d830cd07-e535-4d61-a3be-6dc94a351923" />
 
-**Key Insight:** A significant 32.51% of all loss-making products are concentrated in a single category: Furniture. This suggests a highly uneven distribution of loss-making products across different categories.
+
+**Key Insight:** *A significant 32.51% of all loss-making products are concentrated in a single category: Furniture. This suggests a highly uneven distribution of loss-making products across different categories.*
 
 
 **Customer Segmentation and Sales Analysis**
@@ -546,9 +542,11 @@ Displaying the new columns
     GROUP BY customer_id, customer_name, region
     ORDER BY total_profit DESC
     LIMIT 3;
+
 <img width="992" height="529" alt="image" src="https://github.com/user-attachments/assets/93c83421-4313-422c-abd9-35633324af33" />
 
-**Key Insight:** Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.
+
+**Key Insight:** *Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.*
 
 
 ## Customer segmentation by profit and tier
@@ -575,9 +573,11 @@ Displaying the new columns
         GROUP BY customer_name, region
     ) customer_summary
     ORDER BY total_profit DESC;
+
 <img width="1022" height="677" alt="image" src="https://github.com/user-attachments/assets/293bde8a-a99d-496f-80da-63224b1c10e2" />
 
-**Key Insight:** The Gold Tier is the most profitable customer segment. Customers such as Sanjit Chand and Tamara Chand generate significantly more profit than customers in other tiers. Sanjit Chand, in particular, is a highly valuable customer, contributing over $9,000 in profit.
+
+**Key Insight:** *The Gold Tier is the most profitable customer segment. Customers such as Sanjit Chand and Tamara Chand generate significantly more profit than customers in other tiers. Sanjit Chand, in particular, is a highly valuable customer, contributing over $9,000 in profit.*
 
 -- Regional customer value analysis
 
@@ -600,9 +600,11 @@ Displaying the new columns
     ) customer_metrics
     GROUP BY region
     ORDER BY regional_profit DESC;
+
 <img width="947" height="677" alt="image" src="https://github.com/user-attachments/assets/a5a4fd3e-9bf1-4dab-aeed-398c88b8861c" />
 
-**Key Insight:** The West region has the highest number of profitable customers, totalling 615, and boasts an impressive profitability rate of 90.31%. This indicates that more than 90% of customers in the West are profitable, making it the most valuable region for the business.
+
+**Key Insight:** *The West region has the highest number of profitable customers, totalling 615, and boasts an impressive profitability rate of 90.31%. This indicates that more than 90% of customers in the West are profitable, making it the most valuable region for the business.*
 
 **2. What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)**
 
@@ -669,7 +671,7 @@ Displaying the new columns
     FROM rfm_scores
     ORDER BY Monetary DESC, Recency ASC;
 
-**Interpretation:** All customers have a recency score of 2, indicating that no one has made a purchase recently, which is a significant concern. The last order was placed 365 days ago. The frequency score ranges from 1 to 4, with a higher score indicating more recent orders. The monetary score ranges from 1 to 5, with a higher score indicating greater spending. All customers are categorised as "At Risk" due to their low R Score.
+**Key Insight:** *All customers have a recency score of 2, indicating that no one has made a purchase recently, which is a significant concern. The last order was placed 365 days ago. The frequency score ranges from 1 to 4, with a higher score indicating more recent orders. The monetary score ranges from 1 to 5, with a higher score indicating greater spending. All customers are categorised as "At Risk" due to their low R Score.*
 
 -- What patterns distinguish high-value customers?
 
@@ -726,7 +728,9 @@ Displaying the new columns
             WHEN 'Silver' THEN 3
             ELSE 4
         END;
+
 <img width="977" height="644" alt="image" src="https://github.com/user-attachments/assets/2d1f1c8a-43b5-4c2c-9f7c-1962f24e4b64" />
+
 
 
 
