@@ -2,7 +2,7 @@
 
 ## Objective
 
-This dataset contains 11978 transactional records for a superstore, including sales, profits, customer information, and product categories. The primary goal is to leverage this data to identify key drivers of profitability, understand customer purchasing behaviour, optimise product inventory and pricing, and ultimately provide actionable insights to increase overall store performance and reduce losses from returned items.
+This dataset contains 11,978 transactional records for a superstore, including sales, profits, customer information, and product categories. The primary goal is to leverage this data to identify key drivers of profitability, understand customer purchasing behaviour, optimise product inventory and pricing, and ultimately provide actionable insights to increase overall store performance and reduce losses from returned items.
 
 
 ## Analysis and Business Questions
@@ -11,34 +11,34 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
 **1. Profitability & Loss Analysis:**
 
-    •	What are the key factors that correlate with a product or order generating a loss (negative profit)? 
-    •	Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable? 
-    •	Which product categories, sub-categories, or specific products are the most and least profitable? 
-    •	Are the loss-making products concentrated in certain categories that might be used to attract customers? 
+    • What are the key factors that correlate with a product or order generating a loss (negative profit)? 
+    • Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable? 
+    • Which product categories, sub-categories, or specific products are the most and least profitable? 
+    • Are the loss-making products concentrated in certain categories that might be used to attract customers? 
     
 **2. Customer Segmentation and Sales Analysis:**
 
-    •	Who are our most valuable customers? Can we segment them by sales, profit, or region?
-    •	What patterns distinguish high-value customers from others? 
-    •	Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value? 
+    • Who are our most valuable customers? Can we segment them by sales, profit, or region?
+    • What patterns distinguish high-value customers from others? 
+    • Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value? 
     
 **3. Product and Inventory Management:**
 
-    •	Can we segment products into groups to tailor marketing and inventory strategies? 
-    •	How do sales and profit performance vary by category and sub-category?
-    •	What is the typical sales amount and profit margin based on category and region? 
+    • Can we segment products into groups to tailor marketing and inventory strategies? 
+    • How do sales and profit performance vary by category and sub-category?
+    • What is the typical sales amount and profit margin based on category and region? 
     
 **4. Returns Analysis:**
 
-    •	Why are products being returned? What patterns distinguish returned orders from kept orders? 
-    •	Can we predict the probability of an order being returned based on factors like discount, product category, and profit? 
+    • Why are products being returned? What patterns distinguish returned orders from kept orders? 
+    • Can we predict the probability of an order being returned based on factors like discount, product category, and profit? 
 
 **Proposed Methods**
 
-    1.	Descriptive Analytics: Summarising key metrics (total sales, average profit, overall profit margin, return rate, quantity sold by category). 
-    2.	Correlation Analysis: Identifying relationships between variables (e.g., discount vs. profit, sales vs. quantity, profit vs. probability of return).
-    3.	Predictive Modelling: Using historical data to predict future outcomes (e.g., Logistic Regression to predict if an order will be returned based on discount, category, or profit).
-    4.	Clustering: Using algorithms like K-Means to segment customers into distinct groups based on their total sales, profit generated, and frequency of orders.
+    1. Descriptive Analytics: Summarising key metrics (total sales, average profit, overall profit margin, return rate, quantity sold by category). 
+    2. Correlation Analysis: Identifying relationships between variables (e.g., discount vs. profit, sales vs. quantity, profit vs. probability of return).
+    3. Predictive Modelling: Using historical data to predict future outcomes (e.g., Logistic Regression to predict if an order will be returned based on discount, category, or profit).
+    4. Clustering: Using algorithms like K-Means to segment customers into distinct groups based on their total sales, profit generated, and frequency of orders.
 
 **Tools and Their Proposed Application**
 
