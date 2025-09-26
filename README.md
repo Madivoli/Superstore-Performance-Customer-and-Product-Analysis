@@ -66,8 +66,8 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     
     print(sc.head())
 
-
 <img width="975" height="1049" alt="image" src="https://github.com/user-attachments/assets/6f779907-d466-4346-9403-76079a3b328a" />
+
 
 **-- Saving the combined sheets as a CSV file:**
 
@@ -102,11 +102,13 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
 <img width="975" height="173" alt="image" src="https://github.com/user-attachments/assets/fd4238f4-80cc-494d-aaa6-d8b1edfb9aeb" />
 
+
 **-- Checking data types**
 
     sc.info()
 
 <img width="975" height="792" alt="image" src="https://github.com/user-attachments/assets/cd50e11f-5caa-482b-8585-568825badbad" />
+
 
 **-- Converting data types**
 
@@ -132,6 +134,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
 <img width="975" height="654" alt="image" src="https://github.com/user-attachments/assets/289d2a53-a067-4d27-a7bf-69c0d7b1676d" />
 
+
 **DATA CLEANING**
 
 **-- Checking for missing values:**
@@ -142,6 +145,7 @@ For numeric values, using appropriate imputation techniques(such as mean, median
 
 <img width="975" height="623" alt="image" src="https://github.com/user-attachments/assets/0cb5a9ab-17f4-49df-a3b0-00f7bb5373bc" />
 
+
 *The dataset contains one (1) missing value in the returned column.*
 
 **-- Handling missing values:**
@@ -151,6 +155,7 @@ For numeric values, using appropriate imputation techniques(such as mean, median
     print(sc.isnull().sum())
 
 <img width="975" height="618" alt="image" src="https://github.com/user-attachments/assets/0755dbb9-f4be-49b6-87ad-e501f8910220" />
+
 
 *The dataset is free of missing values.*
 
@@ -175,6 +180,7 @@ For numeric values, using appropriate imputation techniques(such as mean, median
     print(f"DataFrame shape after removing duplicates: {sc.shape}")
 
 <img width="975" height="57" alt="image" src="https://github.com/user-attachments/assets/745a7c01-1f22-47bc-8cf9-a4240fdef198" />
+
 
 **-- Resetting the table's index column:**
 
@@ -246,6 +252,7 @@ Displaying the new columns
 
 <img width="975" height="1291" alt="image" src="https://github.com/user-attachments/assets/02c3b9bf-5dd4-4216-a591-0407f52499f3" />
 
+
 **-- Summary statistics for the new features:**
 
     print("\nSummary statistics:")
@@ -253,6 +260,7 @@ Displaying the new columns
           'discount_amount', 'net_profit_margin', 'processing_days']].describe())
 
 <img width="975" height="597" alt="image" src="https://github.com/user-attachments/assets/31cc5d6f-e55d-4d88-88b8-00dc6d68cebe" />
+
 
 **-- Creating a clean and enhanced CSV file:**
 
@@ -293,7 +301,9 @@ Displaying the new columns
 
 <img width="975" height="393" alt="image" src="https://github.com/user-attachments/assets/e6a67dae-ccbc-492a-8438-a91d4012f392" />
 
+
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
+
 
 **Key Insight:**
 
@@ -345,7 +355,9 @@ Displaying the new columns
             print(f"R-squared: {r2:.4f} ({(r2*100):.1f}% of variance explained)")
             print(f"Slope: {slope:.2f} (For each 1% increase in discount, profit margin changes by {slope:.2f}%)")
             print("\n")
+
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
+
 
 **Key Insight:**
 
@@ -356,7 +368,10 @@ Displaying the new columns
             break_even_discount = -intercept / slope if slope != 0 else np.nan
             print(f"Break-even discount: {break_even_discount:.2%}")
             print(f"Interpretation: Products typically become unprofitable when discounts exceed {break_even_discount:.1%}")
+
 <img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
+
+
 **Key Insight**
 
 *The products will become unprofitable when the discount exceeds 21.8%.*
@@ -394,7 +409,9 @@ Displaying the new columns
         FROM ss_staging
     GROUP BY category
     ORDER BY total_profit DESC;
+
 <img width="977" height="452" alt="image" src="https://github.com/user-attachments/assets/1c2e932a-a531-4afd-94f9-451d1eec7784" />
+
 
 -- Profitability by sub-categories
 
@@ -417,7 +434,9 @@ Displaying the new columns
     FROM ss_staging
     GROUP BY category, sub_category
     ORDER BY total_profit DESC;
+
 <img width="977" height="605" alt="image" src="https://github.com/user-attachments/assets/18037b69-d11c-47a3-9f17-14204b4aeee7" />
+
 
 -- Top 10 most profitable specific products
 
@@ -438,7 +457,9 @@ Displaying the new columns
     HAVING total_sales > 0  
     ORDER BY total_profit DESC
     LIMIT 10;
+
 <img width="977" height="642" alt="image" src="https://github.com/user-attachments/assets/c5462ddf-bc35-4bd4-bb2a-7cac521b4484" />
+
 
 -- Top 10 least profitable products 
 
