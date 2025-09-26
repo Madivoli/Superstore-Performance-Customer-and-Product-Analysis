@@ -286,18 +286,18 @@ Displaying the new columns
 
 -- Creating a binary target variable for loss-making products
 
-            ss['is_loss'] = (ss['profit'] < 0).astype(int)  
+        ss['is_loss'] = (ss['profit'] < 0).astype(int)  
 
 -- Selecting only numeric columns for correlation analysis
 
-            numeric_columns = ss.select_dtypes(include=[np.number]).columns 
+        numeric_columns = ss.select_dtypes(include=[np.number]).columns 
     
 -- Calculating correlations with the loss indicator using only numeric columns
 
-            correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False) 
+        correlation_with_loss = ss[numeric_columns].corr()['is_loss'].sort_values(ascending=False) 
 
-            print("Correlation with Loss Making:")
-            print(correlation_with_loss)
+        print("Correlation with Loss Making:")
+        print(correlation_with_loss)
 
 <img width="975" height="393" alt="image" src="https://github.com/user-attachments/assets/e6a67dae-ccbc-492a-8438-a91d4012f392" />
 
@@ -321,38 +321,38 @@ Displaying the new columns
 
 -- Establishing variables
 
-            X = ss[['discount']]  # Independent variable
-            y = ss['profit_margin']  # Dependent variable
+        X = ss[['discount']]  # Independent variable
+        y = ss['profit_margin']  # Dependent variable
 
 -- Removing any rows with missing values
 
-            data = pd.concat([X, y], axis=1).dropna()
-            X_clean = data[['discount']]
-            y_clean = data['profit_margin']
+        data = pd.concat([X, y], axis=1).dropna()
+        X_clean = data[['discount']]
+        y_clean = data['profit_margin']
 
 -- Fitting SLR model
 
-            model = LinearRegression()
-            model.fit(X_clean, y_clean)
+        model = LinearRegression()
+        model.fit(X_clean, y_clean)
 
 -- Making predictions
 
-            y_pred = model.predict(X_clean)
+        y_pred = model.predict(X_clean)
 
 -- Calculating R-squared
 
-            r2 = r2_score(y_clean, y_pred)
+        r2 = r2_score(y_clean, y_pred)
 
 -- Establishing regression coefficients
 
-            slope = model.coef_[0]
-            intercept = model.intercept_
+        slope = model.coef_[0]
+        intercept = model.intercept_
 
-            print("=== SIMPLE LINEAR REGRESSION RESULTS: Discount vs Profit Margin ===")
-            print(f"Regression Equation: Profit Margin = {intercept:.2f} + ({slope:.2f} × Discount)")
-            print(f"R-squared: {r2:.4f} ({(r2*100):.1f}% of variance explained)")
-            print(f"Slope: {slope:.2f} (For each 1% increase in discount, profit margin changes by {slope:.2f}%)")
-            print("\n")
+        print("=== SIMPLE LINEAR REGRESSION RESULTS: Discount vs Profit Margin ===")
+        print(f"Regression Equation: Profit Margin = {intercept:.2f} + ({slope:.2f} × Discount)")
+        print(f"R-squared: {r2:.4f} ({(r2*100):.1f}% of variance explained)")
+        print(f"Slope: {slope:.2f} (For each 1% increase in discount, profit margin changes by {slope:.2f}%)")
+        print("\n")
 
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
@@ -361,9 +361,9 @@ Displaying the new columns
 
 -- Calculating break-even discount (where profit margin = 0).
 
-            break_even_discount = -intercept / slope if slope != 0 else np.nan
-            print(f"Break-even discount: {break_even_discount:.2%}")
-            print(f"Interpretation: Products typically become unprofitable when discounts exceed {break_even_discount:.1%}")
+        break_even_discount = -intercept / slope if slope != 0 else np.nan
+        print(f"Break-even discount: {break_even_discount:.2%}")
+        print(f"Interpretation: Products typically become unprofitable when discounts exceed {break_even_discount:.1%}")
 
 <img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
 
@@ -523,9 +523,10 @@ Displaying the new columns
 **Key Insight:** *A significant 32.51% of all loss-making products are concentrated in a single category: Furniture. This suggests a highly uneven distribution of loss-making products across different categories.*
 
 
-**Customer Segmentation and Sales Analysis**
 
-**1. Who are our most valuable customers? Can we segment them by sales, profit, or region?**
+## CUSTOMER SEGMENTATION AND SALES ANALYSIS
+
+*1. Who are our most valuable customers? Can we segment them by sales, profit, or region?* 
 
 -- Most valuable customers analysis
 
@@ -610,74 +611,208 @@ Displaying the new columns
 
 **Key Insight:** *The West region has the highest number of profitable customers, totalling 615, and boasts an impressive profitability rate of 90.31%. This indicates that more than 90% of customers in the West are profitable, making it the most valuable region for the business.*
 
-**2. What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)**
+
+## Customer segmentation 
+
+ -- Step 1: Creating a temporary table for customer metrics and segmentation
+ 
+        CREATE TEMPORARY TABLE customer_metrics AS
+        SELECT
+            customer_id,
+            customer_name,
+            region,
+            ROUND(SUM(sales), 2) AS total_sales,
+            ROUND(SUM(profit), 2) AS total_profit,
+            COUNT(DISTINCT order_id) AS order_count,
+            ROUND(SUM(sales) / COUNT(DISTINCT order_id), 2) AS avg_order_value,
+            ROUND(SUM(discount_amount), 2) AS total_discount_amount,
+            ROUND(SUM(discount_amount) / SUM(sales) * 100, 2) AS discount_rate_pct,
+
+-- Category preferences
+  
+            ROUND(SUM(CASE WHEN category = 'Furniture' THEN sales ELSE 0 END), 2) AS furniture_sales,
+            ROUND(SUM(CASE WHEN category = 'Office Supplies' THEN sales ELSE 0 END), 2) AS office_supplies_sales,
+            ROUND(SUM(CASE WHEN category = 'Technology' THEN sales ELSE 0 END), 2) AS technology_sales,
+
+-- Return behaviour
+
+            SUM(CASE WHEN returned = 'Yes' THEN 1 ELSE 0 END) AS return_count
+        FROM
+            ss_staging
+        GROUP BY
+            customer_id, customer_name, region;
+
+
+-- Step 2: Calculating percentile values for segmentation
+
+        SET @profit_80 = (SELECT MAX(total_profit) FROM (
+            SELECT total_profit FROM customer_metrics ORDER BY total_profit DESC LIMIT 80
+        ) t);
+        SET @profit_60 = (SELECT MAX(total_profit) FROM (
+            SELECT total_profit FROM customer_metrics ORDER BY total_profit DESC LIMIT 60
+        ) t);
+        SET @profit_40 = (SELECT MAX(total_profit) FROM (
+            SELECT total_profit FROM customer_metrics ORDER BY total_profit DESC LIMIT 40
+        ) t);
+        SET @sales_80 = (SELECT MAX(total_sales) FROM (
+            SELECT total_sales FROM customer_metrics ORDER BY total_sales DESC LIMIT 80
+        ) t);
+        SET @sales_60 = (SELECT MAX(total_sales) FROM (
+            SELECT total_sales FROM customer_metrics ORDER BY total_sales DESC LIMIT 60
+        ) t);
+
+-- Step 3: Creating a temporary table with segmentation
+
+        CREATE TEMPORARY TABLE customer_segmented AS
+        SELECT
+            customer_id,
+            customer_name,
+            region,
+            total_sales,
+            total_profit,
+            order_count,
+            avg_order_value,
+            discount_rate_pct,
+    
+-- Value segmentation
+
+        CASE
+            WHEN total_profit > @profit_80 AND total_sales > @sales_80 THEN 'Platinum'
+            WHEN total_profit > @profit_60 AND total_sales > @sales_60 THEN 'Gold'
+            WHEN total_profit > @profit_40 THEN 'Silver'
+            ELSE 'Bronze'
+        END AS value_segment,
+
+-- Discount responsiveness
+
+        CASE
+            WHEN discount_rate_pct > 15 THEN 'Discount-Driven'
+            WHEN discount_rate_pct BETWEEN 5 AND 15 THEN 'Moderate-Discount'
+            ELSE 'Full-Price'
+        END AS discount_segment,
+    
+-- Category preferences
+
+            furniture_sales,
+            office_supplies_sales,
+            technology_sales,
+            return_count
+        FROM
+        customer_metrics;
+
+<img width="1500" height="764" alt="image" src="https://github.com/user-attachments/assets/02806d85-c029-4d74-956d-574ab350582e" />
+
+
+-- Using the segmented data to answer the following three questions:
+
+**-- 1. Who are our most valuable 20 customers?**
+
+
+<img width="1502" height="677" alt="image" src="https://github.com/user-attachments/assets/41d703f3-d668-4f3b-b67d-ee7c1c104e85" />
+
+
+**Key Insight:** *Greg Tran is the most frequent purchaser, with a total of 7 orders. He is followed by Adrian Barton, who has placed 6 orders, and Maria Etezadi, who has made 5 orders. A small group of customers — Tran, Barton, Etezadi, and Gary Hwang — accounts for a significant portion of the total orders. In contrast, many customers have only placed 1 or 2 orders. This pattern indicates that a few customers are driving the majority of the transaction volume. This creates a significant business risk if any customer churns.*
+
+
+**-- 2. What patterns distinguish high-value customers?**
+
+    SELECT
+        value_segment,
+        COUNT(*) AS customer_count,
+        ROUND(AVG(total_sales), 2) AS avg_sales,
+        ROUND(AVG(total_profit), 2) AS avg_profit,
+        ROUND(AVG(order_count), 2) AS avg_orders,
+        ROUND(AVG(avg_order_value), 2) AS avg_order_value,
+        ROUND(AVG(discount_rate_pct), 2) AS avg_discount_rate,
+        ROUND(AVG(furniture_sales), 2) AS avg_furniture_sales,
+        ROUND(AVG(office_supplies_sales), 2) AS avg_office_supplies_sales,
+        ROUND(AVG(technology_sales), 2) AS avg_technology_sales,
+        ROUND(AVG(return_count), 2) AS avg_returns
+    FROM
+        customer_segmented
+    GROUP BY
+        value_segment
+    ORDER BY
+        CASE value_segment
+            WHEN 'Platinum' THEN 1
+            WHEN 'Gold' THEN 2
+            WHEN 'Silver' THEN 3
+            ELSE 4
+        END;
+
+
+*2. What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)*
 
 -- RFM Analysis (Recency, Frequency, Monetary)
 
-    WITH customer_metrics AS (
-      SELECT 
-        customer_id,
-        region,
-        COALESCE(DATEDIFF('2020-09-09', MAX(order_date)), 365) as Recency,
-        COUNT(DISTINCT order_id) as Frequency,
-        ROUND(COALESCE(SUM(sales), 0), 2) as Monetary,
-        ROUND(COALESCE(SUM(profit), 0), 2) as Total_Profit,
-        AVG(profit) as Avg_Profit_Per_Order
-      FROM ss_staging
-      GROUP BY customer_id, region
-        ),
-        rfm_scores AS (
-    SELECT *,
-    CASE 
-          WHEN Recency <= 30 THEN 5    -- Last 30 days
-          WHEN Recency <= 90 THEN 4    -- Last 3 months
-          WHEN Recency <= 180 THEN 3   -- Last 6 months
-          WHEN Recency <= 365 THEN 2   -- Last year
-          ELSE 1                       -- Over 1 year
-        END as R_Score,
-    CASE 
-          WHEN Frequency >= 15 THEN 5
-          WHEN Frequency >= 10 THEN 4
-          WHEN Frequency >= 5 THEN 3
-          WHEN Frequency >= 2 THEN 2
-          ELSE 1
-        END as F_Score,
-    CASE 
-          WHEN Monetary >= 5000 THEN 5
-          WHEN Monetary >= 2500 THEN 4
-          WHEN Monetary >= 1000 THEN 3
-          WHEN Monetary >= 500 THEN 2
-          ELSE 1
-        END as M_Score
-      FROM customer_metrics
-    )
-    SELECT 
-      customer_id,
-      region,
-      Recency,
-      Frequency,
-      Monetary,
-      Total_Profit,
-      R_Score,
-      F_Score,
-      M_Score,
-      (R_Score + F_Score + M_Score) as RFM_Score,
-  CASE 
-        WHEN R_Score = 5 AND F_Score >= 4 AND M_Score >= 4 THEN 'Champions'
-        WHEN R_Score >= 4 AND F_Score >= 4 AND M_Score >= 3 THEN 'Loyal Customers'
-        WHEN R_Score = 5 AND F_Score <= 2 THEN 'New Customers'
-        WHEN R_Score >= 3 AND F_Score >= 3 AND M_Score >= 3 THEN 'Potential Loyalists'
-        WHEN R_Score = 2 AND M_Score >= 3 THEN 'At Risk'
-        WHEN R_Score = 1 THEN 'Lost Customers'
-        WHEN Total_Profit < 0 THEN 'Unprofitable'
-        ELSE 'Need Attention'
-      END as Segment
-    FROM rfm_scores
-    ORDER BY Monetary DESC, Recency ASC;
+        WITH customer_metrics AS (
+          SELECT 
+            customer_id,
+            region,
+            COALESCE(DATEDIFF('2020-09-09', MAX(order_date)), 365) as Recency,
+            COUNT(DISTINCT order_id) as Frequency,
+            ROUND(COALESCE(SUM(sales), 0), 2) as Monetary,
+            ROUND(COALESCE(SUM(profit), 0), 2) as Total_Profit,
+            AVG(profit) as Avg_Profit_Per_Order
+          FROM ss_staging
+          GROUP BY customer_id, region
+            ),
+            rfm_scores AS (
+        SELECT *,
+        CASE 
+              WHEN Recency <= 30 THEN 5    -- Last 30 days
+              WHEN Recency <= 90 THEN 4    -- Last 3 months
+              WHEN Recency <= 180 THEN 3   -- Last 6 months
+              WHEN Recency <= 365 THEN 2   -- Last year
+              ELSE 1                       -- Over 1 year
+            END as R_Score,
+        CASE 
+              WHEN Frequency >= 15 THEN 5
+              WHEN Frequency >= 10 THEN 4
+              WHEN Frequency >= 5 THEN 3
+              WHEN Frequency >= 2 THEN 2
+              ELSE 1
+            END as F_Score,
+        CASE 
+              WHEN Monetary >= 5000 THEN 5
+              WHEN Monetary >= 2500 THEN 4
+              WHEN Monetary >= 1000 THEN 3
+              WHEN Monetary >= 500 THEN 2
+              ELSE 1
+            END as M_Score
+          FROM customer_metrics
+        )
+        SELECT 
+          customer_id,
+          region,
+          Recency,
+          Frequency,
+          Monetary,
+          Total_Profit,
+          R_Score,
+          F_Score,
+          M_Score,
+          (R_Score + F_Score + M_Score) as RFM_Score,
+      CASE 
+            WHEN R_Score = 5 AND F_Score >= 4 AND M_Score >= 4 THEN 'Champions'
+            WHEN R_Score >= 4 AND F_Score >= 4 AND M_Score >= 3 THEN 'Loyal Customers'
+            WHEN R_Score = 5 AND F_Score <= 2 THEN 'New Customers'
+            WHEN R_Score >= 3 AND F_Score >= 3 AND M_Score >= 3 THEN 'Potential Loyalists'
+            WHEN R_Score = 2 AND M_Score >= 3 THEN 'At Risk'
+            WHEN R_Score = 1 THEN 'Lost Customers'
+            WHEN Total_Profit < 0 THEN 'Unprofitable'
+            ELSE 'Need Attention'
+          END as Segment
+        FROM rfm_scores
+        ORDER BY Monetary DESC, Recency ASC;
+
+
+<img width="1500" height="1309" alt="image" src="https://github.com/user-attachments/assets/78180b42-1711-4bc9-a0ce-923a0506994a" />
+
 
 **Key Insight:** *All customers have a recency score of 2, indicating that no one has made a purchase recently, which is a significant concern. The last order was placed 365 days ago. The frequency score ranges from 1 to 4, with a higher score indicating more recent orders. The monetary score ranges from 1 to 5, with a higher score indicating greater spending. All customers are categorised as "At Risk" due to their low R Score.*
 
--- What patterns distinguish high-value customers?
+**-- What patterns distinguish high-value customers?**
 
 -- Comparing high-value customer segments vs other customers using RFM segments
 
@@ -736,7 +871,4 @@ Displaying the new columns
 
 <img width="977" height="644" alt="image" src="https://github.com/user-attachments/assets/2d1f1c8a-43b5-4c2c-9f7c-1962f24e4b64" />
 
-
-
-
-
+**Key Insight:** *Customers in the **Platinum segment are the most valuable**, generating more than half of the total revenue. However, this creates significant business risk if any Platinum customers churn. The analysis **reveals a classic "whale curve",** where a small percentage of customers (in this case, the Platinum segment) drives the majority of business revenue.*
