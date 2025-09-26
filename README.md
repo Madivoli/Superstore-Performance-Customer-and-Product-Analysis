@@ -66,6 +66,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     
     print(sc.head())
 
+
 <img width="975" height="1049" alt="image" src="https://github.com/user-attachments/assets/6f779907-d466-4346-9403-76079a3b328a" />
 
 **-- Saving the combined sheets as a CSV file:**
@@ -97,6 +98,7 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     }, inplace=True)
 
     print(sc.columns)
+
 
 <img width="975" height="173" alt="image" src="https://github.com/user-attachments/assets/fd4238f4-80cc-494d-aaa6-d8b1edfb9aeb" />
 
