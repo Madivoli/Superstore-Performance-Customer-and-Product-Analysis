@@ -1,4 +1,4 @@
-## SUPERSTORE PERFORMANCE, CUSTOMER, AND PRODUCT ANALYSIS
+## SUPERSTORE'S PERFORMANCE, CUSTOMER, AND PRODUCT ANALYSIS
 
 ## Objective
 
@@ -50,9 +50,9 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
 ## DATA PROCESSING, CLEANING AND MANIPULATION
 
-**-- Data processing:**
+**DATA PROCESSING**
 
--- Joining multiple Excel sheets into a combined sheet
+**-- Joining multiple Excel sheets into a combined sheet:**
 
     import pandas as pd
     file_path = ("C:\\Users\\hp\\OneDrive\\Projects\\FMCG\\dataset\\Superstore (2016-2020).xlsx")
@@ -65,21 +65,22 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
       sc = pd.concat(superstore_list, ignore_index=True)
     
     print(sc.head())
+
 <img width="975" height="1049" alt="image" src="https://github.com/user-attachments/assets/6f779907-d466-4346-9403-76079a3b328a" />
 
--- Saving the combined sheets as a CSV file
+**-- Saving the combined sheets as a CSV file:**
 
     import pandas as pd
     sc.to_csv("C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\superstore.csv", index=False)
 
--- Verifying if the file was created correctly
+**-- Verifying if the file was created correctly**
 
     import os
     file_path = "C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\superstore.csv"
     if os.path.exists(file_path):
     print("File successfully created!")
 
--- Renaming columns
+**-- Renaming columns**
 
     import pandas as pd
 
@@ -96,14 +97,16 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     }, inplace=True)
 
     print(sc.columns)
+
 <img width="975" height="173" alt="image" src="https://github.com/user-attachments/assets/fd4238f4-80cc-494d-aaa6-d8b1edfb9aeb" />
 
--- Checking data types
+**-- Checking data types**
 
     sc.info()
+
 <img width="975" height="792" alt="image" src="https://github.com/user-attachments/assets/cd50e11f-5caa-482b-8585-568825badbad" />
 
--- Converting data types
+**-- Converting data types**
 
     import pandas as pd
     import numpy as np
@@ -124,58 +127,62 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 
     print("\nData types after conversion:")
     print(sc.dtypes)
+
 <img width="975" height="654" alt="image" src="https://github.com/user-attachments/assets/289d2a53-a067-4d27-a7bf-69c0d7b1676d" />
 
-**-- Data cleaning:**
+**DATA CLEANING**
 
--- Checking for missing values
+**-- Checking for missing values:**
 
 For numeric values, using appropriate imputation techniques(such as mean, median, or mode) or using '0'. For text-based values, using 'unknown'
 
     print(sc.isnull().sum())
+
 <img width="975" height="623" alt="image" src="https://github.com/user-attachments/assets/0cb5a9ab-17f4-49df-a3b0-00f7bb5373bc" />
 
-The dataset contains one (1) missing value in the returned column.
+*The dataset contains one (1) missing value in the returned column.*
 
--- Handling missing values
+**-- Handling missing values:**
 
     sc['returned'] = sc['returned'].fillna('No')
 
     print(sc.isnull().sum())
+
 <img width="975" height="618" alt="image" src="https://github.com/user-attachments/assets/0755dbb9-f4be-49b6-87ad-e501f8910220" />
 
+*The dataset is free of missing values.*
 
-The dataset is free of missing values
-
--- Checking for duplicates
+**-- Checking for duplicates:**
 
     duplicate_rows = sc.duplicated()
     print(f"Number of duplicate rows: {duplicate_rows.sum()}")
 
     duplicates = sc[sc.duplicated()]
     print(duplicates)
+
 <img width="975" height="562" alt="image" src="https://github.com/user-attachments/assets/09148a39-412c-400f-9069-c476518a79d1" />
 
-The dataset has 1 duplicate row 
+*The dataset has 1 duplicate row* 
 
--- Removing duplicates
+**-- Removing duplicates:**
 
     sc = sc.drop_duplicates()
 
     print(f"Number of duplicate rows after removal: {sc.duplicated().sum()}")
 
     print(f"DataFrame shape after removing duplicates: {sc.shape}")
+
 <img width="975" height="57" alt="image" src="https://github.com/user-attachments/assets/745a7c01-1f22-47bc-8cf9-a4240fdef198" />
 
--- Resetting the table's index column
+**-- Resetting the table's index column:**
 
-This will ensure the index is sequential without any gaps from the removed row
+*This will ensure the index is sequential without any gaps from the removed row*
 
     sc = sc.reset_index(drop=True)
 
-**-- Data manipulation**
+**DATA MANIPULATION**
 
--- Creating new features:
+**-- Creating new features:**
     1. Profit margin
     2. Unit price
     3. Total cost
@@ -234,31 +241,33 @@ Displaying the new columns
           'profit_margin', 'unit_price', 'total_cost', 
           'discount_amount', 'net_sales', 'net_profit_margin',
           'is_profitable', 'high_discount']].head(10))
+
 <img width="975" height="1291" alt="image" src="https://github.com/user-attachments/assets/02c3b9bf-5dd4-4216-a591-0407f52499f3" />
 
--- Summary statistics for the new features
+**-- Summary statistics for the new features:**
 
     print("\nSummary statistics:")
     print(sc[['profit_margin', 'unit_price', 'total_cost', 
           'discount_amount', 'net_profit_margin', 'processing_days']].describe())
+
 <img width="975" height="597" alt="image" src="https://github.com/user-attachments/assets/31cc5d6f-e55d-4d88-88b8-00dc6d68cebe" />
 
--- Creating a clean and enhanced CSV file
+**-- Creating a clean and enhanced CSV file:**
 
     sc.to_csv("C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\ss_clean.csv", index=False)
 
--- Saving the CSV file
+**-- Saving the CSV file:**
 
     import os
     file_path = "C:\\Users\\hp\\OneDrive\\Projects\\PYTHON\\Superstore\\ss_clean.csv"
     if os.path.exists(file_path):
         print("File successfully created!")
 
-## DATA ANALYSIS
+## DATA ANALYSIS AND VISUALIZATION
 
-**-- Profitability & Loss Analysis**
+**PROFITABILITY & LOSS ANALYSIS**
 
-**1. What factors correlate with a product or an order generating a loss (negative profit)?**
+*1. What factors correlate with a product or an order generating a loss (negative profit)?*
    
         import pandas as pd
         import numpy as np
@@ -279,28 +288,19 @@ Displaying the new columns
 
             print("Correlation with Loss Making:")
             print(correlation_with_loss)
+
 <img width="975" height="393" alt="image" src="https://github.com/user-attachments/assets/e6a67dae-ccbc-492a-8438-a91d4012f392" />
+
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
-**Interpretation:**
+**Key Insight:**
 
-• There is **a strong positive correlation between discount and is_loss** (r = 0.753921). This indicates that a higher discount is strongly associated with an increased likelihood of a transaction resulting in a loss. In other words, larger discounts directly reduce profit margins.
+• *There is **a strong positive correlation between discount and is_loss** (r = 0.753921). This suggests that a higher discount is significantly associated with a higher likelihood of a transaction resulting in a loss. In other words, larger discounts directly reduce profit margins.*
 
-• There is **a weak positive correlation between the dollar amount of the discount and is_loss** (r = 0.169223). This suggests that a higher absolute dollar discount also correlates with losses. Larger discount amounts (in dollars) increase the risk of incurring losses.
+*2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?*
 
-• The **correlation between total cost and is_loss is very weak** (r = 0.118892). The cost of an item has little to no direct linear relationship with whether a transaction results in a loss. Other factors, such as sales price and discount, play a more significant role.
+-- Developing a predictive model
 
-• Unit price, sales, processing days, and quantity show **no significant linear relationship with the occurrence of a loss**. All of these variables have correlations very close to zero, ranging from -0.002504 to 0.025537.
-
-• Profit margin (r = -0.765811) has **a strong negative correlation**. As the profit margin decreases, the likelihood of a loss increases. A low profit margin directly leads to a loss, while higher profit margins strongly protect against losses.
-
-• Net profit margin (r = -0.591829) exhibits **a moderately strong negative correlation**. Similar to profit margin, a lower net profit margin is associated with a greater chance of incurring a loss.
-
-• There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
-
-
-**2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?**
-   
         import pandas as pd
         import numpy as np
         import matplotlib.pyplot as plt
@@ -345,9 +345,9 @@ Displaying the new columns
             print("\n")
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
-**Interpretations:**
+**Key Insight:**
 
-There exists a **strong negative linear relationship between discount and profit margin**. This finding corroborates the previous correlation results (r = -0.76). The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**. The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**. The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**. Therefore, **discount serves as a very strong predictor of profit margin** within this model.
+*There exists a **strong negative linear relationship between discount and profit margin**. This finding corroborates the previous correlation results (r = -0.76). The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**. The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**. The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**. Therefore, **discount serves as a very strong predictor of profit margin** within this model.*
 
 -- Calculating break-even discount (where profit margin = 0).
 
@@ -355,9 +355,11 @@ There exists a **strong negative linear relationship between discount and profit
             print(f"Break-even discount: {break_even_discount:.2%}")
             print(f"Interpretation: Products typically become unprofitable when discounts exceed {break_even_discount:.1%}")
 <img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
+**Key Insight**
 
+*The products will become unprofitable when the discount exceeds 21.8%.*
 
-**3. Which product categories, sub-categories, or specific products are the most and least profitable?**
+*3. Which product categories, sub-categories, or specific products are the most and least profitable?*
 
 -- Creating a staging table
 
@@ -370,7 +372,7 @@ There exists a **strong negative linear relationship between discount and profit
     SELECT *
     FROM ss_cleaned;
 
--- Profitability by category (ranked from least to most profitabl:
+-- Profitability by category (ranked from least to most profitable:
 
     SELECT 
         category,
