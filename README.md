@@ -19,49 +19,34 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
 **2. Customer Segmentation and Sales Analysis:**
 
     •	Who are our most valuable customers? Can we segment them by sales, profit, or region?
-    •	What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)
+    •	What patterns distinguish high-value customers from others? 
     •	Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value? 
     
 **3. Product and Inventory Management:**
 
-    •	Can we segment products into groups (e.g., "High-Profit Stars," "Low-Sale Negligibles," "High-Risk Return Items") to tailor marketing and inventory strategies? 
-    •	How does sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?
+    •	Can we segment products into groups to tailor marketing and inventory strategies? 
+    •	How do sales and profit performance vary by category and sub-category?
     •	What is the typical sales amount and profit margin based on category and region? 
     
 **4. Returns Analysis:**
 
-    •	Why are products being returned? What patterns distinguish returned orders from kept orders? (e.g., higher discounts, specific product categories, certain shipping methods, lower profit margins?). 
+    •	Why are products being returned? What patterns distinguish returned orders from kept orders? 
     •	Can we predict the probability of an order being returned based on factors like discount, product category, and profit? 
 
 **Proposed Methods**
 
     1.	Descriptive Analytics: Summarising key metrics (total sales, average profit, overall profit margin, return rate, quantity sold by category). 
     2.	Correlation Analysis: Identifying relationships between variables (e.g., discount vs. profit, sales vs. quantity, profit vs. probability of return).
-    3.	Predictive Modelling: Using historical data to predict future outcomes (e.g., Logistic Regression to predict if an order will be returned based on discount, category, and profit).
+    3.	Predictive Modelling: Using historical data to predict future outcomes (e.g., Logistic Regression to predict if an order will be returned based on discount, category, or profit).
     4.	Clustering: Using algorithms like K-Means to segment customers into distinct groups based on their total sales, profit generated, and frequency of orders.
 
 **Tools and Their Proposed Application**
 
-    •	Excel: Initial data exploration.
-        o	Use filters and pivot tables to quickly get a sense of sales distribution by region, category, and year.
-        o	Calculate quick metrics like overall profit margin.
-    •	SQL: To query the database and prepare specific datasets for deeper analysis.
-    •	Python (Pandas, Scikit-learn, Seaborn, Matplotlib): The primary tool for deep analysis.
-        o	Pandas: For robust data cleaning (checking for duplicates, missing values) and manipulation (creating new features like profit_margin).
-        o	Seaborn/Matplotlib: For creating visualisations.
-            	Boxplots: Profit by Category or Discount by Return Status.
-            	Correlation heatmaps to find relationships between numerical variables.
-            	Bar charts for Total Sales by Sub-Category.
-        o	Scikit-learn:
-            	Build a classification model to predict returns using features like discount, category, profit, and quantity.
-            	Use K-Means clustering to segment customers based on their purchasing behaviour.
-    •	Tableau: To build an interactive Superstore Performance Dashboard for management.
-        o	Key Performance Indicators (KPIs): Total Sales, Total Profit, Profit Margin %, Overall Return Rate.
-        o	Filters: For Year, Region, Category, and Sub-Category to drill down into data.
-        o	A map showing sales or profit distribution by U.S. state.
-        o	A scatter plot showing Sales vs. Profit colored by Category (to easily identify profitable and loss-making products).
-        o	A bar chart showing the Top 10 Most Profitable Customers.
-        o	A trend line showing Sales and Profit over time (2016-2020).
+    • Excel: Initial data exploration and visualisation.
+    • MySQL: To query the database and prepare specific datasets for deeper analysis.
+    • Python (Pandas, Scikit-learn, Seaborn, Matplotlib): The primary tool for data cleaning, processing, manipulation and deep analysis.
+    • Tableau: To build an interactive Superstore Performance Dashboard for management.
+       
 
 ## DATA PROCESSING, CLEANING AND MANIPULATION
 
