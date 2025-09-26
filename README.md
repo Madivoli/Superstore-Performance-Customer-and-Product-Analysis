@@ -516,6 +516,7 @@ Displaying the new columns
         GROUP BY category
         ORDER BY loss_maker_quantity_percentage DESC, total_loss_amount DESC;
 
+
 <img width="1350" height="117" alt="image" src="https://github.com/user-attachments/assets/d830cd07-e535-4d61-a3be-6dc94a351923" />
 
 
@@ -542,6 +543,7 @@ Displaying the new columns
     GROUP BY customer_id, customer_name, region
     ORDER BY total_profit DESC
     LIMIT 3;
+
 
 <img width="992" height="529" alt="image" src="https://github.com/user-attachments/assets/93c83421-4313-422c-abd9-35633324af33" />
 
@@ -574,6 +576,7 @@ Displaying the new columns
     ) customer_summary
     ORDER BY total_profit DESC;
 
+
 <img width="1022" height="677" alt="image" src="https://github.com/user-attachments/assets/293bde8a-a99d-496f-80da-63224b1c10e2" />
 
 
@@ -600,6 +603,7 @@ Displaying the new columns
     ) customer_metrics
     GROUP BY region
     ORDER BY regional_profit DESC;
+
 
 <img width="947" height="677" alt="image" src="https://github.com/user-attachments/assets/a5a4fd3e-9bf1-4dab-aeed-398c88b8861c" />
 
@@ -728,6 +732,7 @@ Displaying the new columns
             WHEN 'Silver' THEN 3
             ELSE 4
         END;
+
 
 <img width="977" height="644" alt="image" src="https://github.com/user-attachments/assets/2d1f1c8a-43b5-4c2c-9f7c-1962f24e4b64" />
 
