@@ -15,16 +15,19 @@ The analysis is divided into 4 key areas and seeks to answer the following busin
     •	Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable? 
     •	Which product categories, sub-categories, or specific products are the most and least profitable? 
     •	Are the loss-making products concentrated in certain categories that might be used to attract customers? 
+    
 **2. Customer Segmentation and Sales Analysis:**
 
     •	Who are our most valuable customers? Can we segment them by sales, profit, or region?
     •	What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)
     •	Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value? 
+    
 **3. Product and Inventory Management:**
 
     •	Can we segment products into groups (e.g., "High-Profit Stars," "Low-Sale Negligibles," "High-Risk Return Items") to tailor marketing and inventory strategies? 
     •	How does sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?
     •	What is the typical sales amount and profit margin based on category and region? 
+    
 **4. Returns Analysis:**
 
     •	Why are products being returned? What patterns distinguish returned orders from kept orders? (e.g., higher discounts, specific product categories, certain shipping methods, lower profit margins?). 
