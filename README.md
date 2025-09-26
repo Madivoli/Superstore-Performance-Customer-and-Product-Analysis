@@ -478,7 +478,7 @@ Displaying the new columns
 <img width="977" height="555" alt="image" src="https://github.com/user-attachments/assets/6603a95c-3b42-4d4c-bcfe-055633d4027d" />
 
 
-**4. Are the loss-making products concentrated in certain categories that might be used to attract customers?**
+*4. Are the loss-making products concentrated in certain categories that might be used to attract customers?*
 
 -- Analysis of loss-making products concentration
 
@@ -872,3 +872,72 @@ Displaying the new columns
 <img width="977" height="644" alt="image" src="https://github.com/user-attachments/assets/2d1f1c8a-43b5-4c2c-9f7c-1962f24e4b64" />
 
 **Key Insight:** *Customers in the **Platinum segment are the most valuable**, generating more than half of the total revenue. However, this creates significant business risk if any Platinum customers churn. The analysis **reveals a classic "whale curve",** where a small percentage of customers (in this case, the Platinum segment) drives the majority of business revenue.*
+
+**-- Regional analysis of high-value customers:**
+
+    SELECT
+        region,
+        value_segment,
+        COUNT(*) AS customer_count,
+        ROUND(SUM(total_sales), 2) AS region_sales,
+        ROUND(SUM(total_profit), 2) AS region_profit
+    FROM
+        customer_segmented
+    GROUP BY
+        region, value_segment
+    ORDER BY
+        region,
+        CASE value_segment
+            WHEN 'Platinum' THEN 1
+            WHEN 'Gold' THEN 2
+            WHEN 'Silver' THEN 3
+            ELSE 4
+        END;
+
+<img width="1502" height="617" alt="image" src="https://github.com/user-attachments/assets/25432eb2-ccef-452a-8235-a794a8d714d4" />
+
+
+*3. Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value?*
+
+    import pandas as pd
+    import numpy as np
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    from scipy import stats
+
+-- Selecting the variables for analysis
+
+    variables = ['quantity', 'discount', 'sales', 'profit']
+    analysis_df = ss[variables].copy()
+
+-- Calculating correlations
+
+    correlation_matrix = analysis_df.corr()
+    print("Correlation Matrix:")
+    print(correlation_matrix.round(3))
+
+-- Calculating correlations amongst the variables
+
+    print("\nKey Relationships:")
+    print(f"Quantity vs Sales: {analysis_df['quantity'].corr(analysis_df['sales']):.3f}")
+    print(f"Discount vs Sales: {analysis_df['discount'].corr(analysis_df['sales']):.3f}")
+    print(f"Quantity vs Discount: {analysis_df['quantity'].corr(analysis_df['discount']):.3f}")
+    print(f"Discount vs Profit: {analysis_df['discount'].corr(analysis_df['profit']):.3f}")
+
+<img width="1500" height="336" alt="image" src="https://github.com/user-attachments/assets/1efe945d-b49b-449f-b21e-6ad0e7a2ab26" />
+
+-- Correlation heatmap
+
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(correlation_matrix, 
+            annot=True, 
+            cmap='RdBu_r', 
+            center=0,
+            square=True,
+            fmt='.2f',
+            linewidths=0.5)
+    plt.title('Correlation Heatmap: Quantity, Discount, Sales & Profit')
+    plt.tight_layout()
+    plt.show()
+
+<img width="1341" height="1184" alt="image" src="https://github.com/user-attachments/assets/985bdfa9-5ebb-4ca6-8426-b222e3baf592" />
