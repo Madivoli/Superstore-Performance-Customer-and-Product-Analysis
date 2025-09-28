@@ -275,6 +275,29 @@ Displaying the new columns
 
 ## DATA ANALYSIS AND VISUALIZATION
 
+**SUMMARY STATISTICS**
+
+    SELECT 
+	    COUNT(DISTINCT customer_id) AS total_customers,
+        COUNT(DISTINCT order_id) AS total_orders,
+        SUM(quantity) AS total_quantity_sold,
+        ROUND(SUM(sales), 2) AS total_sales,
+        ROUND(SUM(total_cost), 2) AS total_cost,
+        ROUND(SUM(discount_amount), 2) AS total_discount,
+        ROUND(SUM(profit), 2) AS total_profit,
+        ROUND(AVG(unit_price), 2) AS avg_unit_price,
+        ROUND(AVG(discount) * 100, 2) AS avg_discount_percent,
+    
+-- Calculated KPIs
+
+	    ROUND(COUNT(DISTINCT order_id) * 1.0 / COUNT(DISTINCT customer_id), 2) AS orders_per_customer,
+	    ROUND(SUM(sales) / COUNT(DISTINCT order_id), 2) AS average_order_value,
+        ROUND(SUM(quantity) * 1.0 / COUNT(DISTINCT order_id), 2) AS quantity_per_order,
+        ROUND(SUM(total_cost) / SUM(quantity), 2) AS average_unit_cost,
+	    ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent
+    FROM ss_staging;	
+
+
 **PROFITABILITY & LOSS ANALYSIS**
 
 *1. What factors correlate with a product or an order generating a loss (negative profit)?*
