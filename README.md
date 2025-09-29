@@ -92,7 +92,7 @@ Based on the KPI analysis, the business should consider the following:
 ---
 ## Profitability & Loss Analysis
 
-**Which product categories, sub-categories, or specific products are the most and least profitable?**
+1.**Which product categories, sub-categories, or specific products are the most and least profitable?**
 
 -- Profitability by category (ranked from the most to the least profitable):
 
@@ -118,7 +118,7 @@ Based on the KPI analysis, the business should consider the following:
 
 ---
 
-**What factors correlate with a product or an order generating a loss (negative profit)?**
+2.**What factors correlate with a product or an order generating a loss (negative profit)?**
         
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
@@ -134,7 +134,7 @@ Based on the KPI analysis, the business should consider the following:
 - There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
 
 ---
-**Is there a relationship between discount levels and profit margin? At what discount level do products typically become unprofitable?**
+3.**Is there a relationship between discount levels and profit margin? At what discount level do products typically become unprofitable?**
 
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
@@ -157,7 +157,7 @@ The **products will become unprofitable when the discount exceeds 21.8%**.
 
 ---
 
-4. Are the loss-making products concentrated in certain categories that might be used to attract customers?*
+4.**Are the loss-making products concentrated in certain categories that might be used to attract customers?**
 
 -- Analysis of loss-making products concentration
 
@@ -173,7 +173,7 @@ The **products will become unprofitable when the discount exceeds 21.8%**.
 
 ## Customer Segmentation and Sales Analysis
 
-1. Who are our most valuable customers? Can we segment them by sales, profit, or region?
+1. **Who are our most valuable customers? Can we segment them by sales, profit, or region?**
 
 -- Most valuable customers by sales and profits
 
