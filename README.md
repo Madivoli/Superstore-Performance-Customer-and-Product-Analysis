@@ -85,14 +85,40 @@ Based on the KPI analysis, the business should consider the following:
 
 1. **Protecting and Nurturing the Customer Base**: The business should initiate initiatives to improve customer retention, such as loyalty programs, exclusive offers, and exceptional service. These strategies will yield a much higher return than focusing solely on acquiring new customers with similar lifetime values.
 
-2. **Analyze the Discount Strategy**: The business should use discounts strategically to attract new customers or clear out slow-selling inventory, rather than applying them as a blanket policy or for merely retaining loyal customers. Additionally, it may be beneficial to reduce the discount percentage, for example to 14%, to evaluate its impact on profits or sales volume.
+2. **Analyse the Discount Strategy**: The business should use discounts strategically to attract new customers or clear out slow-selling inventory, rather than applying them as a blanket policy or for merely retaining loyal customers. Additionally, it may be beneficial to reduce the discount percentage, for example to 14%, to evaluate its impact on profits or sales volume.
 
 3. **Increase Customer Lifetime Value (LTV)**: Since customers tend to make frequent purchases, the business can encourage them to add one more item to each order through upselling or cross-selling strategies. It might also consider introducing a new, higher-margin product to the lineup.
 
-
+---
 ## Profitability & Loss Analysis
 
-*1. What factors correlate with a product or an order generating a loss (negative profit)?*
+1. Which product categories, sub-categories, or specific products are the most and least profitable?
+
+-- Profitability by category (ranked from the most to the least profitable):
+
+<img width="1202" height="452" alt="image" src="https://github.com/user-attachments/assets/44ad94de-2029-4622-87c2-5f0cdba69044" />
+
+  
+
+-- Profitability by sub-categories
+
+<img width="1202" height="622" alt="image" src="https://github.com/user-attachments/assets/29b2bde1-ea22-4e20-86b7-2795aecb6ba4" />
+
+
+
+-- Top 10 most profitable specific products
+
+<img width="1202" height="632" alt="image" src="https://github.com/user-attachments/assets/eb83ca8b-46e9-411f-901e-ac8b7a93a2f9" />
+
+
+-- Top 10 least profitable products 
+
+<img width="1202" height="555" alt="image" src="https://github.com/user-attachments/assets/676a6e6f-d7a3-436f-ac37-11101e17134a" />
+
+
+---
+
+2. What factors correlate with a product or an order generating a loss (negative profit)?*
         
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
@@ -107,8 +133,8 @@ Based on the KPI analysis, the business should consider the following:
 - Net profit margin (r = -0.591829) exhibits **a moderately strong negative correlation**. Similar to profit margin, a lower net profit margin is associated with a greater chance of incurring a loss.
 - There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
 
-*2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?*
-
+---
+3. Is there a relationship between discount levels and profit margin? At what discount level do products typically become unprofitable?
 
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
@@ -119,7 +145,7 @@ Based on the KPI analysis, the business should consider the following:
 - The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**.
 - The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**.
 - The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**.
-- Therefore, **discount serves as a very strong predictor of profit margin** within this model.]
+- Therefore, **discount serves as a very strong predictor of profit margin** within this model.
 
 
 <img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
@@ -129,220 +155,57 @@ Based on the KPI analysis, the business should consider the following:
 
 The **products will become unprofitable when the discount exceeds 21.8%**.
 
-*3. Which product categories, sub-categories, or specific products are the most and least profitable?*
+---
 
--- Profitability by category (ranked from the most to the least profitable):
-
-  
-<img width="977" height="452" alt="image" src="https://github.com/user-attachments/assets/1c2e932a-a531-4afd-94f9-451d1eec7784" />
-
-
--- Profitability by sub-categories
-
-    SELECT 
-        category,
-        sub_category,
-        COUNT(DISTINCT order_id) AS total_orders,
-        SUM(quantity) AS total_quantity_sold,
-        ROUND(SUM(sales), 2) AS total_sales,
-        ROUND(SUM(profit), 2) AS total_profit,
-        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
-        ROUND(AVG(profit_margin), 2) AS avg_profit_margin_percent,
-    
-        RANK() OVER (PARTITION BY category ORDER BY SUM(profit) DESC) AS category_profit_rank,
-        RANK() OVER (ORDER BY SUM(profit) DESC) AS overall_profit_rank,
-        CASE 
-            WHEN SUM(profit) > 0 THEN 'Profitable'
-            ELSE 'Loss-Making'
-        END AS profitability_status
-    FROM ss_staging
-    GROUP BY category, sub_category
-    ORDER BY total_profit DESC;
-
-<img width="977" height="605" alt="image" src="https://github.com/user-attachments/assets/18037b69-d11c-47a3-9f17-14204b4aeee7" />
-
-
--- Top 10 most profitable specific products
-
-    SELECT 
-        product_id,
-        product_name,
-        category,
-        sub_category,
-        COUNT(DISTINCT order_id) AS total_orders,
-        SUM(quantity) AS total_quantity_sold,
-        ROUND(SUM(sales), 2) AS total_sales,
-        ROUND(SUM(profit), 2) AS total_profit,
-        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
-        ROUND(AVG(unit_price), 2) AS avg_unit_price,
-        ROUND(AVG(discount) * 100, 2) AS avg_discount_percent
-    FROM ss_staging
-    GROUP BY product_id, product_name, category, sub_category
-    HAVING total_sales > 0  
-    ORDER BY total_profit DESC
-    LIMIT 10;
-
-<img width="977" height="642" alt="image" src="https://github.com/user-attachments/assets/c5462ddf-bc35-4bd4-bb2a-7cac521b4484" />
-
-
--- Top 10 least profitable products 
-
-    SELECT 
-        product_id,
-        product_name,
-        category,
-        sub_category,
-        COUNT(DISTINCT order_id) AS total_orders,
-        SUM(quantity) AS total_quantity_sold,
-        ROUND(SUM(sales), 2) AS total_sales,
-        ROUND(SUM(profit), 2) AS total_profit,
-        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
-        ROUND(AVG(unit_price), 2) AS avg_unit_price,
-        ROUND(AVG(discount) * 100, 2) AS avg_discount_percent
-    FROM ss_staging
-    GROUP BY product_id, product_name, category, sub_category
-    HAVING total_sales > 0  
-    ORDER BY total_profit ASC  
-    LIMIT 10;
-
-<img width="977" height="555" alt="image" src="https://github.com/user-attachments/assets/6603a95c-3b42-4d4c-bcfe-055633d4027d" />
-
-
-*4. Are the loss-making products concentrated in certain categories that might be used to attract customers?*
+4. Are the loss-making products concentrated in certain categories that might be used to attract customers?*
 
 -- Analysis of loss-making products concentration
-
-    SELECT 
-        category,
-    -- Product counts
-        COUNT(DISTINCT product_id) AS total_products,
-        SUM(CASE WHEN total_profit < 0 THEN 1 ELSE 0 END) AS loss_making_products,
-        ROUND(SUM(CASE WHEN total_profit < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(DISTINCT product_id), 2) AS loss_product_percentage,
-    
-    -- Sales volume
-        SUM(total_quantity) AS total_quantity_sold,
-        SUM(CASE WHEN total_profit < 0 THEN total_quantity ELSE 0 END) AS loss_maker_quantity,
-        ROUND(SUM(CASE WHEN total_profit < 0 THEN total_quantity ELSE 0 END) * 100.0 / SUM(total_quantity), 2) AS                                     loss_maker_quantity_percentage,
-    
-    -- Financial metrics
-        ROUND(SUM(total_profit), 2) AS net_profit,
-        ROUND(SUM(CASE WHEN total_profit < 0 THEN total_profit ELSE 0 END), 2) AS total_loss_amount,
-    
-    -- Loss leader assessment
-        CASE 
-            WHEN SUM(CASE WHEN total_profit < 0 THEN total_quantity ELSE 0 END) > AVG(total_quantity) * 2 THEN 'Potential Loss Leader                     Category'
-            ELSE 'Regular Category'
-            END AS loss_leader_assessment
-    FROM (
-        SELECT 
-            category,
-            product_id,
-            SUM(quantity) AS total_quantity,
-            SUM(sales) AS total_sales,
-            SUM(profit) AS total_profit
-        FROM ss_staging
-        GROUP BY category, product_id
-            ) product_summary
-        GROUP BY category
-        ORDER BY loss_maker_quantity_percentage DESC, total_loss_amount DESC;
-
 
 <img width="1350" height="117" alt="image" src="https://github.com/user-attachments/assets/d830cd07-e535-4d61-a3be-6dc94a351923" />
 
 
-**Key Insight:** *A significant 32.51% of all loss-making products are concentrated in a single category: Furniture. This suggests a highly uneven distribution of loss-making products across different categories.*
+**Key Insight:** 
 
+- A significant 32.51% of all loss-making products are concentrated in a single category: Furniture.
+- This suggests a highly uneven distribution of loss-making products across different categories.
 
+----
 
-## CUSTOMER SEGMENTATION AND SALES ANALYSIS
+## Customer Segmentation and Sales Analysis
 
-*1. Who are our most valuable customers? Can we segment them by sales, profit, or region?* 
+1. Who are our most valuable customers? Can we segment them by sales, profit, or region?
 
--- Most valuable customers analysis
-
-## Top customers by sales and profits
-
-    SELECT 
-        customer_id,
-        customer_name,
-        region,
-        ROUND(SUM(sales), 2) AS total_sales,
-        ROUND(SUM(profit), 2) AS total_profit,
-        COUNT(DISTINCT order_id) AS total_orders,
-        ROUND(AVG(profit_margin), 2) AS avg_profit_margin
-    FROM ss_staging
-    GROUP BY customer_id, customer_name, region
-    ORDER BY total_profit DESC
-    LIMIT 3;
+-- Most valuable customers by sales and profits
 
 
 <img width="992" height="529" alt="image" src="https://github.com/user-attachments/assets/93c83421-4313-422c-abd9-35633324af33" />
 
 
-**Key Insight:** *Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.*
+**Key Insight:** 
+- Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.*
 
 
-## Customer segmentation by profit and tier
+-- Customer segmentation by profit and tier
 
-    SELECT 
-        customer_name,
-        region,
-        total_sales,
-        total_profit,
-        CASE 
-            WHEN total_profit > 10000 THEN 'Platinum'
-            WHEN total_profit BETWEEN 5000 AND 10000 THEN 'Gold'
-            WHEN total_profit BETWEEN 1000 AND 5000 THEN 'Silver'
-            ELSE 'Bronze'
-        END AS customer_tier,
-        RANK() OVER (ORDER BY total_profit DESC) AS profit_rank
-    FROM (
-        SELECT 
-            customer_name,
-            region,
-            ROUND(SUM(sales), 2) AS total_sales,
-            ROUND(SUM(profit), 2) AS total_profit
-        FROM ss_staging
-        GROUP BY customer_name, region
-    ) customer_summary
-    ORDER BY total_profit DESC;
+  <img width="1022" height="677" alt="image" src="https://github.com/user-attachments/assets/293bde8a-a99d-496f-80da-63224b1c10e2" />
 
 
-<img width="1022" height="677" alt="image" src="https://github.com/user-attachments/assets/293bde8a-a99d-496f-80da-63224b1c10e2" />
-
-
-**Key Insight:** *The Gold Tier is the most profitable customer segment. Customers such as Sanjit Chand and Tamara Chand generate significantly more profit than customers in other tiers. Sanjit Chand, in particular, is a highly valuable customer, contributing over $9,000 in profit.*
+**Key Insight:** 
+- The Gold Tier is the most profitable customer segment.
+- Customers such as Sanjit Chand and Tamara Chand generate significantly more profit than customers in other tiers.
+- Sanjit Chand, in particular, is a highly valuable customer, contributing over $9,000 in profit.
 
 -- Regional customer value analysis
-
-    SELECT 
-        region,
-        COUNT(DISTINCT customer_id) AS total_customers,
-        ROUND(SUM(sales), 2) AS regional_sales,
-        ROUND(SUM(profit), 2) AS regional_profit,
-        ROUND(AVG(profit), 2) AS avg_profit_per_customer,
-        SUM(CASE WHEN profit > 0 THEN 1 ELSE 0 END) AS profitable_customers,
-        ROUND(SUM(CASE WHEN profit > 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(DISTINCT customer_id), 2) AS profitability_rate
-    FROM (
-        SELECT 
-            region,
-            customer_id,
-            SUM(sales) AS sales,
-            SUM(profit) AS profit
-        FROM ss_staging
-        GROUP BY region, customer_id
-    ) customer_metrics
-    GROUP BY region
-    ORDER BY regional_profit DESC;
-
 
 <img width="947" height="677" alt="image" src="https://github.com/user-attachments/assets/a5a4fd3e-9bf1-4dab-aeed-398c88b8861c" />
 
 
-**Key Insight:** *The West region has the highest number of profitable customers, totalling 615, and boasts an impressive profitability rate of 90.31%. This indicates that more than 90% of customers in the West are profitable, making it the most valuable region for the business.*
+**Key Insight:** 
+- The West region has the highest number of profitable customers, totalling 615, and boasts an impressive profitability rate of 90.31%.
+- This indicates that more than 90% of customers in the West are profitable, making it the most valuable region for the business.
 
 
-## Customer segmentation 
+-- Customer segmentation 
 
  -- Step 1: Creating a temporary table for customer metrics and segmentation
  
