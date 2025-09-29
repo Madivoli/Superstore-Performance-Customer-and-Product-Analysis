@@ -487,7 +487,8 @@ The **products will become unprofitable when the discount exceeds 21.8%**.
             ELSE 4
         END;
 
-<img width="1502" height="617" alt="image" src="https://github.com/user-attachments/assets/25432eb2-ccef-452a-8235-a794a8d714d4" />
+<img width="1502" height="581" alt="image" src="https://github.com/user-attachments/assets/9f18770a-2790-4463-95fc-873f141f037b" />
+
 
 
 *3. Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value?*
