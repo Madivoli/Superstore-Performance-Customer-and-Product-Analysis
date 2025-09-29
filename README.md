@@ -118,7 +118,7 @@ Based on the KPI analysis, the business should consider the following:
 
 ---
 
-2. What factors correlate with a product or an order generating a loss (negative profit)?*
+2. What factors correlate with a product or an order generating a loss (negative profit)?
         
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
@@ -178,11 +178,11 @@ The **products will become unprofitable when the discount exceeds 21.8%**.
 -- Most valuable customers by sales and profits
 
 
-<img width="992" height="529" alt="image" src="https://github.com/user-attachments/assets/93c83421-4313-422c-abd9-35633324af33" />
+<img width="1517" height="529" alt="image" src="https://github.com/user-attachments/assets/2370b654-0425-4bac-9c0c-9513c958b4e7" />
 
 
 **Key Insight:** 
-- Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.*
+- Customer ID SC-20095 is **the most valuable customer**, as they generate the highest sales and profit.
 
 
 -- Customer segmentation by profit and tier
