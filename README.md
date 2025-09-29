@@ -15,15 +15,16 @@ To analyse 4 key areas and answer the following business questions:
 
 **1. Profitability & Loss Analysis:**
 
-    • What are the key factors that correlate with a product or order generating a loss (negative profit)? 
-    • Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable? 
     • Which product categories, sub-categories, or specific products are the most and least profitable? 
+	• What are the key factors that correlate with a product or order generating a loss (negative profit)? 
     • Are the loss-making products concentrated in certain categories that might be used to attract customers? 
+	• Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable? 
     
 **2. Customer Segmentation and Sales Analysis:**
 
     • Who are our most valuable customers? Can we segment them by sales, profit, or region?
     • What patterns distinguish high-value customers from others? 
+	• How do sales fluctuate over time, and are there seasonal peaks?
     • Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value? 
     
 **3. Product and Inventory Management:**
@@ -108,101 +109,31 @@ Based on the KPI analysis, the business should consider the following:
 
 *2. Is there a relationship between discount levels and profitability? At what discount level do products typically become unprofitable?*
 
--- Developing a predictive model
-
-        import pandas as pd
-        import numpy as np
-        import matplotlib.pyplot as plt
-        import seaborn as sns
-        from sklearn.linear_model import LinearRegression
-        from sklearn.metrics import r2_score
-        import scipy.stats as stats
-
--- Establishing variables
-
-        X = ss[['discount']]  # Independent variable
-        y = ss['profit_margin']  # Dependent variable
-
--- Removing any rows with missing values
-
-        data = pd.concat([X, y], axis=1).dropna()
-        X_clean = data[['discount']]
-        y_clean = data['profit_margin']
-
--- Fitting SLR model
-
-        model = LinearRegression()
-        model.fit(X_clean, y_clean)
-
--- Making predictions
-
-        y_pred = model.predict(X_clean)
-
--- Calculating R-squared
-
-        r2 = r2_score(y_clean, y_pred)
-
--- Establishing regression coefficients
-
-        slope = model.coef_[0]
-        intercept = model.intercept_
-
-        print("=== SIMPLE LINEAR REGRESSION RESULTS: Discount vs Profit Margin ===")
-        print(f"Regression Equation: Profit Margin = {intercept:.2f} + ({slope:.2f} × Discount)")
-        print(f"R-squared: {r2:.4f} ({(r2*100):.1f}% of variance explained)")
-        print(f"Slope: {slope:.2f} (For each 1% increase in discount, profit margin changes by {slope:.2f}%)")
-        print("\n")
 
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
 
-**Key Insight:** *There exists a **strong negative linear relationship between discount and profit margin**. This finding corroborates the previous correlation results (r = -0.76). The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**. The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**. The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**. Therefore, **discount serves as a very strong predictor of profit margin** within this model.*
+**Key Insight:** 
 
--- Calculating break-even discount (where profit margin = 0).
+- There exists a **strong negative linear relationship between discount and profit margin**. This finding corroborates the previous correlation results (r = -0.76).
+- The intercept of 42.63% indicates that **when the discount is 0%**, the **predicted profit margin is 42.63%**.
+- The slope of -195.73 suggests that **for each 1 unit increase in discount, the profit margin is expected to decrease by 195.73 units**.
+- The R-squared value of 0.7475 (or 74.8%) signifies that **74.8% of the variability in profit margin can be attributed to the discount variable alone**.
+- Therefore, **discount serves as a very strong predictor of profit margin** within this model.]
 
-        break_even_discount = -intercept / slope if slope != 0 else np.nan
-        print(f"Break-even discount: {break_even_discount:.2%}")
-        print(f"Interpretation: Products typically become unprofitable when discounts exceed {break_even_discount:.1%}")
 
 <img width="975" height="103" alt="image" src="https://github.com/user-attachments/assets/c90d5229-e6f4-4d1d-95e6-549793b04cfd" />
 
 
-**Key Insight:** *The products will become unprofitable when the discount exceeds 21.8%.*
+**Key Insight:** 
+
+The **products will become unprofitable when the discount exceeds 21.8%**.
 
 *3. Which product categories, sub-categories, or specific products are the most and least profitable?*
 
--- Creating a staging table
+-- Profitability by category (ranked from the most to the least profitable):
 
-    CREATE TABLE ss_staging	
-    LIKE ss_cleaned;
-    
--- Inserting data
-
-    INSERT ss_staging
-    SELECT *
-    FROM ss_cleaned;
-
--- Profitability by category (ranked from least to most profitable:
-
-    SELECT 
-        category,
-        COUNT(DISTINCT order_id) AS total_orders,
-        SUM(quantity) AS total_quantity_sold,
-        ROUND(SUM(sales), 2) AS total_sales,
-        ROUND(SUM(profit), 2) AS total_profit,
-        ROUND(SUM(profit) / SUM(sales) * 100, 2) AS profit_margin_percent,
-        ROUND(AVG(profit_margin), 2) AS avg_profit_margin_percent,
-    
-    -- Profitability ranking
-        RANK() OVER (ORDER BY SUM(profit) DESC) AS profit_rank,
-        CASE 
-            WHEN SUM(profit) > 0 THEN 'Profitable'
-        ELSE 'Loss-Making'
-        END AS profitability_status
-        FROM ss_staging
-    GROUP BY category
-    ORDER BY total_profit DESC;
-
+  
 <img width="977" height="452" alt="image" src="https://github.com/user-attachments/assets/1c2e932a-a531-4afd-94f9-451d1eec7784" />
 
 
