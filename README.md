@@ -319,11 +319,25 @@ The analysis categorized products into six segments:
 <img width="1515" height="302" alt="image" src="https://github.com/user-attachments/assets/b5f93714-69c1-40cc-8d9d-da5735d9547d" />
 
 
-2. **How does sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?**
+2. **How do products segments sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?**
 
 -- Sales performance by category 
 
-<img width="1500" height="646" alt="image" src="https://github.com/user-attachments/assets/dc145cbf-b38f-4997-bde3-872a838780ec" />
 
+<img width="1202" height="672" alt="image" src="https://github.com/user-attachments/assets/dd0f2f37-625f-4f61-9b4a-0ba43f399721" />
+
+
+-- Profit performance by category 
+<img width="1202" height="699" alt="image" src="https://github.com/user-attachments/assets/8e7dac39-8caa-4390-9c7d-f2b3426ac090" />
+
+
+-- Sales performance by sub-category 
+<img width="1202" height="677" alt="image" src="https://github.com/user-attachments/assets/be6bc60c-2329-4d7b-a002-8d130e6f14df" />
+
+
+
+-- Profit performance by sub-category 
+
+<img width="1202" height="1172" alt="image" src="https://github.com/user-attachments/assets/f3a9ff20-b5d6-4b8b-b7b2-357622e015df" />
 
 3. **What is the typical sales amount and profit margin based on category and region?**
