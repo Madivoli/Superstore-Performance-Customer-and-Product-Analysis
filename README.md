@@ -300,3 +300,20 @@ Based on the KPI analysis, the business should consider the following:
 -- Correlation heatmap
 
 <img width="1341" height="1184" alt="image" src="https://github.com/user-attachments/assets/985bdfa9-5ebb-4ca6-8426-b222e3baf592" />
+
+---
+## Product and Inventory Management
+1. **Can we segment products into groups to tailor marketing and inventory strategies?**
+
+-- Segmenting Products Into Groups 
+
+The analysis categorized products into six segments:
+
+1. **High-Profit Stars**: These products have both high sales volume and high profit margins, making them highly valuable to the business.
+2. **Low-Sale Negligibles**: This group consists of products with very low sales volume and a reasonable profit margin.
+3. **High-Risk Return Items**: These products sell well but come with a significant issue: a high return rate. 
+4. **High-Margin Performers**: These products are highly profitable on a per-unit basis but do not sell in large volumes.
+5. **Loss-Makers**: This category includes products that result in a loss for every sale. 
+6. **Standard Products**: These are reliable, steady-selling products that generate decent profit margins, though not exceptionally high.
+
+<img width="1515" height="302" alt="image" src="https://github.com/user-attachments/assets/b5f93714-69c1-40cc-8d9d-da5735d9547d" />
