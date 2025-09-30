@@ -72,6 +72,7 @@ To analyse 4 key areas and answer the following business questions:
 Calculated KPIs:
 	<img width="1350" height="489" alt="image" src="https://github.com/user-attachments/assets/e4bd2da2-7455-4b59-b8c3-1f71de242828" />
 
+**Key Insights:**
 - There are a total of **793 customers**, with an average of **7.42 orders per customer (OPC)**.
 - The **Average Order Value (AOV) is $1,865**, driven by a significant number of units sold per transaction, averaging 30 units.
 - The average **discount percentage is 15.58%**, indicating that the business relies heavily on discounts to stimulate sales.
@@ -92,7 +93,7 @@ Based on the KPI analysis, the business should consider the following:
 ---
 ## Profitability & Loss Analysis
 
-1.**Which product categories, sub-categories, or specific products are the most and least profitable?**
+1. **Which product categories, sub-categories, or specific products are the most and least profitable?**
 
 -- Profitability by category (ranked from the most to the least profitable):
 
@@ -118,7 +119,7 @@ Based on the KPI analysis, the business should consider the following:
 
 ---
 
-2.**What factors correlate with a product or an order generating a loss (negative profit)?**
+2. **What factors correlate with a product or an order generating a loss (negative profit)?**
         
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
@@ -134,7 +135,7 @@ Based on the KPI analysis, the business should consider the following:
 - There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
 
 ---
-3.**Is there a relationship between discount levels and profit margin? At what discount level do products typically become unprofitable?**
+3. **Is there a relationship between discount levels and profit margin? At what discount level do products typically become unprofitable?**
 
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
@@ -157,7 +158,7 @@ The **products will become unprofitable when the discount exceeds 21.8%**.
 
 ---
 
-4.**Are the loss-making products concentrated in certain categories that might be used to attract customers?**
+4. **Are the loss-making products concentrated in certain categories that might be used to attract customers?**
 
 -- Analysis of loss-making products concentration
 
@@ -263,16 +264,39 @@ The **products will become unprofitable when the discount exceeds 21.8%**.
     
 <img width="1502" height="581" alt="image" src="https://github.com/user-attachments/assets/9f18770a-2790-4463-95fc-873f141f037b" />
 
+3. **How do sales fluctuate over time, and are there seasonal peaks?**
+
+<img width="1502" height="592" alt="image" src="https://github.com/user-attachments/assets/d2128a85-ef4f-4f8c-9188-af4e15d7636b" />
+
+**Key Observations:**
+
+- **Q4 Performance:** In every year, the fourth quarter (Q4) has been the strongest for sales; that is, there have been huge spikes in Q4 sales. This consistent pattern indicates seasonality in the business, likely due to holiday shopping, year-end budget spending by clients, or the renewal of annual contracts.
+-  **Q1 Volatility:** The first quarter has been the weakest for sales every year. It recorded its lowest sales in 2018 ($68,852), but showed significant growth in 2019 ($93,192) and 2020 ($123,145). Understanding the reasons behind this volatility—such as summer slowdowns or specific campaign timings—will be crucial for future forecasting.
+-   **Accelerating Growth:** The growth from 2019 to 2020 is particularly remarkable, breaking the company out of its plateau and achieving its highest-ever quarterly sales.
 
 
-3. **Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value?**
+4. **Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value?**
 
 <img width="1500" height="336" alt="image" src="https://github.com/user-attachments/assets/1efe945d-b49b-449f-b21e-6ad0e7a2ab26" />
 
 **Key Insight:** 
+- There is **a very weak positive relationship between the quantity purchased and total sales value**, indicating that selling more units does lead to higher sales.
+- This suggests that the business does not heavily rely on volume-driven sales, as customers are not buying large quantities to secure better value.
+- There is **no relationship between discount levels and sales value**, meaning that discounts are not driving additional sales revenue. **This is a critical finding!**
+- The business's **discount strategy is ineffective at stimulating demand**, as customers are not buying more in dollar terms when discounts are offered. 
+
+**Recommendations:**
+1. Reevaluate the entire discount strategy. Discounts are negatively impacting profits (-0.224) without boosting sales (-0.022).
+2. Consider eliminating or reducing discounts on low-responding products.
+3. Test alternative promotions, such as bundling, loyalty programs, or free shipping.
+
+**Recommended Actions:**
+- **Immediate:** Audit current discount practices.  
+- **Short-term:** Test removing discounts on select products to measure the impact.  
+- **Medium-term:** Develop strategies for customer acquisition that do not rely on price reductions.  
+- **Strategic:** Focus on increasing the average order value rather than just transaction volume.
 
 
 -- Correlation heatmap
 
-   
 <img width="1341" height="1184" alt="image" src="https://github.com/user-attachments/assets/985bdfa9-5ebb-4ca6-8426-b222e3baf592" />
