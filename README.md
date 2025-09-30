@@ -154,7 +154,7 @@ Based on the KPI analysis, the business should consider the following:
 
 **Key Insight:** 
 
-The **products will become unprofitable when the discount exceeds 21.8%**.
+- The **products will become unprofitable when the discount exceeds 21.8%**.
 
 ---
 
