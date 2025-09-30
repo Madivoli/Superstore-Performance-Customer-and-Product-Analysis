@@ -305,7 +305,7 @@ Based on the KPI analysis, the business should consider the following:
 ## Product and Inventory Management
 1. **Can we segment products into groups to tailor marketing and inventory strategies?**
 
--- Segmenting Products Into Groups 
+-- Segmenting products into groups 
 
 The analysis categorized products into six segments:
 
@@ -317,3 +317,13 @@ The analysis categorized products into six segments:
 6. **Standard Products**: These are reliable, steady-selling products that generate decent profit margins, though not exceptionally high.
 
 <img width="1515" height="302" alt="image" src="https://github.com/user-attachments/assets/b5f93714-69c1-40cc-8d9d-da5735d9547d" />
+
+
+2. **How does sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?**
+
+-- Sales performance by category 
+
+<img width="1500" height="646" alt="image" src="https://github.com/user-attachments/assets/dc145cbf-b38f-4997-bde3-872a838780ec" />
+
+
+3. **What is the typical sales amount and profit margin based on category and region?**
