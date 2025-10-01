@@ -37,6 +37,7 @@ To analyse 4 key areas and answer the following business questions:
 
     • Why are products being returned? What patterns distinguish returned orders from kept orders? 
     • Can we predict the probability of an order being returned based on factors like discount, product category, and profit? 
+
 ---
 ## Methods
 
@@ -44,6 +45,7 @@ To analyse 4 key areas and answer the following business questions:
     2. Correlation Analysis: Identifying relationships between variables (e.g., discount vs. profit, sales vs. quantity, profit vs. probability of return).
     3. Predictive Modelling: Using historical data to predict future outcomes (e.g., Logistic Regression to predict if an order will be returned based on discount, category, or profit).
     4. Clustering: Using algorithms like K-Means to segment customers into distinct groups based on their total sales, profit generated, and frequency of orders.
+
 ---
 ## Tools 
 
