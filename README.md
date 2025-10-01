@@ -1,6 +1,5 @@
 ## Superstore's Performance, Customer, and Product Analysis
 
-
 ![hanson-lu-sq5P00L7lXc-unsplash](https://github.com/user-attachments/assets/74fc54bb-9619-4bf2-98d0-559ff9517e1b)
 
 
@@ -39,6 +38,7 @@ To analyse 4 key areas and answer the following business questions:
     • Can we predict the probability of an order being returned based on factors like discount, product category, and profit? 
 
 ---
+
 ## Methods
 
     1. Descriptive Analytics: Summarising key metrics (total sales, average profit, overall profit margin, return rate, quantity sold by category). 
@@ -47,6 +47,7 @@ To analyse 4 key areas and answer the following business questions:
     4. Clustering: Using algorithms like K-Means to segment customers into distinct groups based on their total sales, profit generated, and frequency of orders.
 
 ---
+
 ## Tools 
 
 	• Excel: Initial data exploration and visualisation.
@@ -55,6 +56,7 @@ To analyse 4 key areas and answer the following business questions:
 	• Tableau: To build an interactive Superstore Performance Dashboard for management.
        
 ---
+
 ## Procedures
 
 **Data Processing, Cleaning and Manipulation**
