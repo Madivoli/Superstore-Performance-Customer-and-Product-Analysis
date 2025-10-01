@@ -69,6 +69,7 @@ To analyse 4 key areas and answer the following business questions:
 
    
  ---  
+
  **Exploratory Data Analysis**
  
 Calculated KPIs:
@@ -93,9 +94,10 @@ Based on the KPI analysis, the business should consider the following:
 3. **Increase Customer Lifetime Value (LTV)**: Since customers tend to make frequent purchases, the business can encourage them to add one more item to each order through upselling or cross-selling strategies. It might also consider introducing a new, higher-margin product to the lineup.
 
 ---
+
 ## Profitability & Loss Analysis
 
-1. **Which product categories, sub-categories, or specific products are the most and least profitable?**
+**Which product categories, sub-categories, or specific products are the most and least profitable?**
 
 -- Profitability by category (ranked from the most to the least profitable):
 
@@ -121,7 +123,7 @@ Based on the KPI analysis, the business should consider the following:
 
 ---
 
-2. **What factors correlate with a product or an order generating a loss (negative profit)?**
+**What factors correlate with a product or an order generating a loss (negative profit)?**
         
 <img width="975" height="695" alt="image" src="https://github.com/user-attachments/assets/d4d42373-3e5a-419f-ab2f-151ba2aa95fa" />
 
@@ -137,7 +139,8 @@ Based on the KPI analysis, the business should consider the following:
 - There is **a weak negative relationship between profit and is_loss** (r = -0.234539). As profit decreases, the likelihood of a loss tends to increase.
 
 ---
-3. **Is there a relationship between discount levels and profit margin? At what discount level do products typically become unprofitable?**
+
+**Is there a relationship between discount levels and profit margin? At what discount level do products typically become unprofitable?**
 
 <img width="975" height="156" alt="image" src="https://github.com/user-attachments/assets/ee1cb8c9-f70a-4bb5-8c57-ee2739e70126" />
 
@@ -160,7 +163,7 @@ Based on the KPI analysis, the business should consider the following:
 
 ---
 
-4. **Are the loss-making products concentrated in certain categories that might be used to attract customers?**
+**Are the loss-making products concentrated in certain categories that might be used to attract customers?**
 
 -- Analysis of loss-making products concentration
 
@@ -176,7 +179,7 @@ Based on the KPI analysis, the business should consider the following:
 
 ## Customer Segmentation and Sales Analysis
 
-1. **Who are our most valuable customers? Can we segment them by sales, profit, or region?**
+**Who are our most valuable customers? Can we segment them by sales, profit, or region?**
 
 -- Most valuable customers by sales and profits
 
@@ -234,8 +237,9 @@ Based on the KPI analysis, the business should consider the following:
 - In contrast, many customers have only placed 1 or 2 orders.
 - This pattern indicates that a few customers are driving the majority of the transaction volume. This creates a significant business risk if any customer churns.
 
+---
 
-2. **What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)**
+**What patterns distinguish high-value customers from others? (e.g., do they buy specific categories, respond to discounts, come from certain regions?)**
 
 -- RFM Analysis (Recency, Frequency, Monetary) to distinguish customers' purchasing patterns
 
@@ -266,7 +270,9 @@ Based on the KPI analysis, the business should consider the following:
     
 <img width="1502" height="581" alt="image" src="https://github.com/user-attachments/assets/9f18770a-2790-4463-95fc-873f141f037b" />
 
-3. **How do sales fluctuate over time, and are there seasonal peaks?**
+---
+
+**How do sales fluctuate over time, and are there seasonal peaks?**
 
 <img width="1502" height="592" alt="image" src="https://github.com/user-attachments/assets/d2128a85-ef4f-4f8c-9188-af4e15d7636b" />
 
@@ -277,7 +283,9 @@ Based on the KPI analysis, the business should consider the following:
 -   **Accelerating Growth:** The growth from 2019 to 2020 is particularly remarkable, breaking the company out of its plateau and achieving its highest-ever quarterly sales.
 
 
-4. **Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value?**
+---
+
+**Is there a relationship between the quantity of items purchased, the discount offered, and the total sales value?**
 
 <img width="1500" height="336" alt="image" src="https://github.com/user-attachments/assets/1efe945d-b49b-449f-b21e-6ad0e7a2ab26" />
 
@@ -304,8 +312,10 @@ Based on the KPI analysis, the business should consider the following:
 <img width="1341" height="1184" alt="image" src="https://github.com/user-attachments/assets/985bdfa9-5ebb-4ca6-8426-b222e3baf592" />
 
 ---
+
 ## Product and Inventory Management
-1. **Can we segment products into groups to tailor marketing and inventory strategies?**
+
+**Can we segment products into groups to tailor marketing and inventory strategies?**
 
 -- Segmenting products into groups 
 
@@ -335,8 +345,9 @@ The analysis categorized products into six segments:
 - **Analyze Low-Sale Negligibles**: After addressing the Loss-Makers, review the Low-Sale Negligibles. Reducing this group can lower inventory costs, simplify marketing efforts, and allow the business to concentrate resources on high-performing products.
 - **Focus on High-Profit Products**: Once the Loss-Makers have been discontinued, identify the products that are driving profits (the High-Profit Stars and High-Margin Performers). Develop strategies to enhance their sales and defend their market position.
 
+---
 
-2. **How do products segments sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?**
+**How do products segments sales and profit performance vary by category (Furniture, Office Supplies, Technology) and sub-category?**
 
 -- Sales performance by category 
 
@@ -352,9 +363,10 @@ The analysis categorized products into six segments:
 <img width="1202" height="677" alt="image" src="https://github.com/user-attachments/assets/be6bc60c-2329-4d7b-a002-8d130e6f14df" />
 
 
-
 -- Profit performance by sub-category 
 
 <img width="1202" height="1172" alt="image" src="https://github.com/user-attachments/assets/f3a9ff20-b5d6-4b8b-b7b2-357622e015df" />
 
-3. **What is the typical sales amount and profit margin based on category and region?**
+---
+
+**What is the typical sales amount and profit margin based on category and region?**
