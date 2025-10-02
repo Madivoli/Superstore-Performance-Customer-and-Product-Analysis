@@ -372,3 +372,50 @@ The analysis categorized products into six segments:
 ---
 
 **What is the typical sales amount and profit margin based on category and region?**
+
+
+
+
+
+---
+
+## Returns Analysis
+
+**Why are products being returned? What patterns distinguish returned orders from kept orders?**
+
+-- Count of returned orders and return rate
+
+<img width="1200" height="84" alt="image" src="https://github.com/user-attachments/assets/3227db7f-92c6-444a-894c-6b35fc60e448" />
+
+
+
+-- region - Return Analysis
+
+<img width="1200" height="336" alt="image" src="https://github.com/user-attachments/assets/f01f8291-f348-42f0-a1f9-fe3f648e9dcc" />
+<img width="1200" height="595" alt="image" src="https://github.com/user-attachments/assets/f28a213e-3cef-48d6-ae8c-2b7ae444803c" />
+
+
+
+
+
+
+-- Return Distribution by Region
+
+<img width="1200" height="197" alt="image" src="https://github.com/user-attachments/assets/a221a2d9-5eea-4a4f-b6c3-8060a099cda8" />
+<img width="723" height="756" alt="image" src="https://github.com/user-attachments/assets/41a3a125-26e2-4f4b-b300-f5abcd0fde42" />
+
+
+-- Pattern Analysis 
+
+<img width="975" height="392" alt="image" src="https://github.com/user-attachments/assets/63d46dd3-23df-4145-b060-fcaaa9fe5909" />
+
+
+-- Deeper Analysis
+
+<img width="1200" height="1263" alt="image" src="https://github.com/user-attachments/assets/32f8e81a-3ef6-4f17-88ce-77fc7b1c74af" />
+
+-- 
+
+
+
+**Can we predict the probability of an order being returned based on factors like discount, product category, and profit?**
